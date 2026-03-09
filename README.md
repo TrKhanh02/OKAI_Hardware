@@ -1,2 +1,3 @@
 # OKAI_Hardware
-Dự án hardware
+Dự án software
+
