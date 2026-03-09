@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Lock Manager</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Toast Container -->
+    <div id="toast-container"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="header-icon">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h1>Smart Lock Manager</h1>
+                    <p class="subtitle">RFID & Fingerprint Authentication System</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container main-content">
+        <div class="grid-layout">
+            <!-- Left Column -->
+            <div class="left-column">
+                <!-- Sensor Panel -->
+                <div class="sensor-panel sticky">
+                    <div class="sensor-grid">
+                        <!-- RFID Scanner -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                                        <line x1="1" y1="10" x2="23" y2="10"></line>
+                                    </svg>
+                                    RFID Scanner
+                                </h3>
+                            </div>
+                            <div class="card-content">
+                                <div id="rfid-data-display" class="data-display" style="display: none;">
+                                    <p class="data-label">UID:</p>
+                                    <p class="data-value" id="rfid-data-value"></p>
+                                </div>
+                                <div class="button-group">
+                                    <button id="rfid-scan-btn" class="btn btn-primary full-width">
+                                        Activate Scan
+                                    </button>
+                                </div>
+                                <div id="rfid-action-buttons" class="button-group" style="display: none;">
+                                    <button id="rfid-save-btn" class="btn btn-primary full-width">
+                                        <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                                            <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                                            <polyline points="7 3 7 8 15 8"></polyline>
+                                        </svg>
+                                        Save UID
+                                    </button>
+                                    <button id="rfid-refresh-btn" class="btn btn-outline">
+                                        <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="23 4 23 10 17 10"></polyline>
+                                            <polyline points="1 20 1 14 7 14"></polyline>
+                                            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                                        </svg>
+                                        Rescan
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Fingerprint Scanner -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M2 12C2 6.5 6.5 2 12 2a10 10 0 0 1 8 4"></path>
+                                        <path d="M5 19.5C5.5 18 6 15 6 12c0-.7.12-1.37.34-2"></path>
+                                        <path d="M17.29 21.02c.12-.6.43-2.3.5-3.02"></path>
+                                        <path d="M12 10a2 2 0 0 0-2 2c0 1.02-.1 2.51-.26 4"></path>
+                                        <path d="M8.65 22c.21-.66.45-1.32.57-2"></path>
+                                        <path d="M14 13.12c0 2.38 0 6.38-1 8.88"></path>
+                                        <path d="M2 16h.01"></path>
+                                        <path d="M21.8 16c.2-2 .131-5.354 0-6"></path>
+                                        <path d="M9 6.8a6 6 0 0 1 9 5.2c0 .47 0 1.17-.02 2"></path>
+                                    </svg>
+                                    Fingerprint Scanner
+                                </h3>
+                            </div>
+                            <div class="card-content">
+                                <div id="fingerprint-scanning-display" class="scanning-display" style="display: none;">
+                                    <div class="spinner"></div>
+                                    <div>
+                                        <p class="scanning-title">Enrolling...</p>
+                                        <p class="scanning-subtitle">Scan <span id="fingerprint-scan-count">0</span>/4 completed</p>
+                                    </div>
+                                </div>
+                                <div id="fingerprint-data-display" class="data-display" style="display: none;">
+                                    <p class="data-label">FID:</p>
+                                    <p class="data-value" id="fingerprint-data-value"></p>
+                                </div>
+                                <div class="button-group">
+                                    <button id="fingerprint-enroll-btn" class="btn btn-primary full-width">
+                                        Enroll Fingerprint
+                                    </button>
+                                </div>
+                                <div id="fingerprint-action-buttons" class="button-group" style="display: none;">
+                                    <button id="fingerprint-save-btn" class="btn btn-primary full-width">
+                                        <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                                            <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                                            <polyline points="7 3 7 8 15 8"></polyline>
+                                        </svg>
+                                        Save FID
+                                    </button>
+                                    <button id="fingerprint-refresh-btn" class="btn btn-outline">
+                                        <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="23 4 23 10 17 10"></polyline>
+                                            <polyline points="1 20 1 14 7 14"></polyline>
+                                            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                                        </svg>
+                                        Restart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- User Form -->
+                <div class="card" id="user-form-section">
+                    <div class="card-header">
+                        <h3 class="card-title" id="form-title">
+                            <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="8.5" cy="7" r="4"></circle>
+                                <line x1="20" y1="8" x2="20" y2="14"></line>
+                                <line x1="23" y1="11" x2="17" y2="11"></line>
+                            </svg>
+                            Add New User
+                        </h3>
+                    </div>
+                    <div class="card-content">
+                        <form id="user-form">
+                            <div class="form-group">
+                                <label for="user-name">Name</label>
+                                <input type="text" id="user-name" class="input" placeholder="Enter user name" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="user-id-slot">ID Slot (1-100)</label>
+                                <input type="number" id="user-id-slot" class="input" min="1" max="100" placeholder="Enter ID slot number" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="user-rfid">RFID UID</label>
+                                <div class="input-with-button">
+                                    <input type="text" id="user-rfid" class="input" placeholder="Scan RFID card..." readonly>
+                                    <button type="button" id="rfid-history-btn" class="btn btn-outline btn-icon">
+                                        <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <polyline points="12 6 12 12 16 14"></polyline>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="user-fingerprint">Fingerprint FID</label>
+                                <div class="input-with-button">
+                                    <input type="text" id="user-fingerprint" class="input" placeholder="Enroll fingerprint..." readonly>
+                                    <button type="button" id="fingerprint-history-btn" class="btn btn-outline btn-icon">
+                                        <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <polyline points="12 6 12 12 16 14"></polyline>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="admin-toggle">
+                                <div>
+                                    <label for="user-admin">Administrator</label>
+                                    <p class="help-text">Grant admin privileges</p>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" id="user-admin">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+
+                            <div class="button-group">
+                                <button type="submit" class="btn btn-primary full-width" id="form-submit-btn">
+                                    <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                                        <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                                        <polyline points="7 3 7 8 15 8"></polyline>
+                                    </svg>
+                                    Add User
+                                </button>
+                                <button type="button" class="btn btn-outline" id="form-cancel-btn" style="display: none;">
+                                    <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                                    </svg>
+                                    Cancel
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column -->
+            <div class="right-column">
+                <!-- ID Grid Button -->
+                <div class="id-grid-button-container">
+                    <button id="open-id-grid-btn" class="btn btn-outline full-width">
+                        <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="14" width="7" height="7"></rect>
+                            <rect x="3" y="14" width="7" height="7"></rect>
+                        </svg>
+                        View ID Grid (<span id="grid-count">0</span>/100)
+                    </button>
+                </div>
+
+                <!-- User List -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Registered Users (<span id="user-count">0</span>)</h3>
+                        <div class="search-box">
+                            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <path d="m21 21-4.35-4.35"></path>
+                            </svg>
+                            <input type="text" id="user-search" class="input search-input" placeholder="Search users...">
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="user-list-scroll">
+                            <div id="user-list" class="user-list">
+                                <p class="empty-message">No registered users yet</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ID Grid Modal -->
+    <div id="id-grid-modal" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2>ID Slot Management</h2>
+                <button class="modal-close" id="close-id-grid-modal">
+                    <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-legend">
+                <span class="legend-item">
+                    <span class="legend-color registered"></span>
+                    Registered (<span id="registered-count">0</span>)
+                </span>
+                <span class="legend-item">
+                    <span class="legend-color available"></span>
+                    Available (<span id="available-count">100</span>)
+                </span>
+            </div>
+            <div class="search-box" style="margin-top: 16px;">
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+                <input type="text" id="grid-search" class="input search-input" placeholder="Search by user name...">
+                <button id="grid-search-clear" class="search-clear" style="display: none;">
+                    <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <button id="grid-search-btn" class="btn btn-primary" style="margin-top: 8px; width: 100px;">Search</button>
+            <div class="modal-body">
+                <div id="id-grid" class="id-grid"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sensor History Modal -->
+    <div id="sensor-history-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="sensor-history-title">Recent Scans</h2>
+                <button class="modal-close" id="close-sensor-history-modal">
+                    <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="sensor-history-list" class="sensor-history-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Auth Modal -->
+    <div id="admin-auth-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>
+                    <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    </svg>
+                    Administrator Authentication
+                </h2>
+                <button class="modal-close" id="close-admin-auth-modal">
+                    <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="modal-description">Enter the administrator password to grant or revoke admin privileges.</p>
+                <form id="admin-auth-form">
+                    <div class="form-group">
+                        <label for="admin-password">Password</label>
+                        <input type="password" id="admin-password" class="input" placeholder="Enter password" required>
+                        <p id="admin-auth-error" class="error-message" style="display: none;">Incorrect password</p>
+                    </div>
+                    <div class="button-group">
+                        <button type="button" class="btn btn-outline" id="admin-auth-cancel">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Authenticate</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="delete-confirmation-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Delete User</h2>
+                <button class="modal-close" id="close-delete-modal">
+                    <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="modal-description" id="delete-confirmation-message"></p>
+                <div class="button-group">
+                    <button type="button" class="btn btn-outline" id="delete-cancel">Cancel</button>
+                    <button type="button" class="btn btn-danger" id="delete-confirm">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

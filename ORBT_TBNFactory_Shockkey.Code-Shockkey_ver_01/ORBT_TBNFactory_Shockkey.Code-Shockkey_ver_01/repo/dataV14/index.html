@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Lock Key Manager</title>
+   <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <div class="header-title">
+                    <svg class="icon-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                    </svg>
+                    <div>
+                        <h1>Smart Lock Key Manager</h1>
+                        <p>RFID & Fingerprint Authentication System</p>
+                    </div>
+                </div>
+                <button class="btn btn-white" id="openGridBtn">
+                    <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1v-4zM14 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"/>
+                    </svg>
+                    <span>ID Grid (<span id="userCount">0</span>/100)</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Sensor Panel -->
+        <div class="card">
+            <h2 style="font-size: 18px; font-weight: 600; margin-bottom: 16px;">Sensor Readings</h2>
+            <div class="sensor-grid">
+                <!-- RFID Scanner -->
+                <div class="sensor-box">
+                    <div class="sensor-header">
+                        <svg class="icon text-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                        <span>RFID Scanner</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" style="font-size: 13px; color: #64748b;">UID:</label>
+                        <div class="sensor-display" id="rfidDisplay">
+                            <span class="text-gray">No data</span>
+                        </div>
+                    </div>
+                    <div class="flex gap-2">
+                        <button class="btn btn-primary" id="scanRfidBtn" style="flex: 1;">
+                            <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                            <span>Scan RFID</span>
+                        </button>
+                        <button class="btn btn-secondary hidden" id="refreshRfidBtn">
+                            <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <button class="btn btn-success hidden" id="saveRfidBtn" style="margin-top: 12px; width: 100%;">
+                        <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/>
+                        </svg>
+                        <span>Save UID</span>
+                    </button>
+                    <div class="text-green hidden" id="rfidSaved" style="text-align: center; margin-top: 12px; font-size: 14px; font-weight: 600;">
+                        ✓ Saved
+                    </div>
+                </div>
+
+                <!-- Fingerprint Scanner -->
+                <div class="sensor-box">
+                    <div class="sensor-header">
+                        <svg class="icon text-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4"/>
+                        </svg>
+                        <span>Fingerprint Scanner</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" style="font-size: 13px; color: #64748b;">FID:</label>
+                        <div class="sensor-display" id="fpDisplay">
+                            <span class="text-gray">No data</span>
+                        </div>
+                    </div>
+                    <div class="flex gap-2">
+                        <button class="btn btn-purple" id="enrollFpBtn" style="flex: 1;">
+                            <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4"/>
+                            </svg>
+                            <span>Enroll</span>
+                        </button>
+                        <button class="btn btn-secondary hidden" id="refreshFpBtn">
+                            <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <button class="btn btn-success hidden" id="saveFpBtn" style="margin-top: 12px; width: 100%;">
+                        <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/>
+                        </svg>
+                        <span>Save FID</span>
+                    </button>
+                    <div class="text-green hidden" id="fpSaved" style="text-align: center; margin-top: 12px; font-size: 14px; font-weight: 600;">
+                        ✓ Saved
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- User Form -->
+        <div class="card" id="userFormCard">
+            <div class="flex justify-between items-center" style="margin-bottom: 16px;">
+                <h2 style="font-size: 18px; font-weight: 600;" id="formTitle">Select an ID slot to add or edit a user</h2>
+                <button class="btn btn-icon hidden" id="cancelFormBtn">
+                    <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <form id="userForm" class="hidden">
+                <div class="form-group">
+                    <label class="form-label">Name <span class="required">*</span></label>
+                    <input type="text" class="input" id="userName" placeholder="Enter user name" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">RFID UID <span class="required">*</span></label>
+                    <div class="flex gap-2">
+                        <input type="text" class="input input-mono" id="userRfid" placeholder="Scan RFID to populate" readonly>
+                        <button type="button" class="btn btn-primary hidden" id="rfidHistoryBtn">
+                            <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            History
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Fingerprint ID <span class="required">*</span></label>
+                    <div class="flex gap-2">
+                        <input type="text" class="input input-mono" id="userFp" placeholder="Enroll fingerprint to populate" readonly>
+                        <button type="button" class="btn btn-purple hidden" id="fpHistoryBtn">
+                            <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            History
+                        </button>
+                    </div>
+                </div>
+
+                <div class="checkbox-container">
+                    <label class="checkbox-label">
+                        <input type="checkbox" class="checkbox" id="isAdmin">
+                        <span style="font-weight: 600; font-size: 14px;">Administrator Privileges</span>
+                    </label>
+                    <div class="hidden" id="adminPasswordGroup" style="margin-top: 12px;">
+                        <input type="password" class="input" id="adminPassword" placeholder="Enter admin password" style="font-size: 13px;">
+                        <p style="font-size: 12px; color: #64748b; margin-top: 6px;">Default password: admin123</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-2" style="margin-top: 20px;">
+                    <button type="button" class="btn btn-secondary" id="cancelBtn" style="flex: 1;">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="submitBtn" style="flex: 1;">
+                        <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/>
+                        </svg>
+                        <span>Save User</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- User List -->
+        <div class="card">
+            <h2 style="font-size: 18px; font-weight: 600; margin-bottom: 16px;">
+                Registered Users (<span id="registeredCount">0</span>/100)
+            </h2>
+            <div class="search-container">
+                <svg class="icon search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+                <input type="text" class="input input-with-icon" id="userSearch" placeholder="Search by name or ID...">
+            </div>
+            <div class="user-list" id="userList">
+                <div class="empty-state">No registered users yet</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ID Grid Modal -->
+    <div class="modal-overlay" id="gridModal">
+        <div class="modal modal-lg">
+            <div class="modal-header">
+                <h3 style="font-weight: 600;">ID Grid (100 Slots)</h3>
+                <button class="btn btn-icon" id="closeGridBtn">
+                    <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <div style="padding: 20px; border-bottom: 1px solid #e2e8f0;">
+                <div class="flex gap-2">
+                    <div style="flex: 1; position: relative;">
+                        <svg class="icon search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                        <input type="text" class="input input-with-icon" id="gridSearch" placeholder="Search by name...">
+                    </div>
+                    <button class="btn btn-primary" id="gridSearchBtn">Search</button>
+                </div>
+            </div>
+            <div class="modal-body" id="idGridContainer">
+                <!-- Grid will be generated here -->
+            </div>
+            <div class="modal-footer" style="justify-content: flex-start;">
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #ef4444;"></div>
+                        <span>Registered</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #10b981;"></div>
+                        <span>Available</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirm Delete Modal -->
+    <div class="modal-overlay" id="confirmModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 style="font-weight: 600;">Delete User</h3>
+                <button class="btn btn-icon" id="closeConfirmBtn">
+                    <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="confirmMessage" style="color: #334155;"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelDeleteBtn">Cancel</button>
+                <button class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Password Modal -->
+    <div class="modal-overlay" id="passwordModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="flex items-center gap-2">
+                    <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                    </svg>
+                    <h3 style="font-weight: 600;">Administrator Authentication</h3>
+                </div>
+                <button class="btn btn-icon" id="closePasswordBtn">
+                    <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p style="color: #64748b; margin-bottom: 16px; font-size: 14px;">Enter administrator password to continue</p>
+                <input type="password" class="input" id="passwordInput" placeholder="Enter password">
+                <p class="text-red hidden" id="passwordError" style="margin-top: 8px; font-size: 14px;">Incorrect password</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelPasswordBtn">Cancel</button>
+                <button class="btn btn-primary" id="confirmPasswordBtn">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sensor History Modal -->
+    <div class="modal-overlay" id="historyModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 style="font-weight: 600;" id="historyTitle">Recent Scans</h3>
+            </div>
+            <div class="modal-body" id="historyList">
+                <!-- History items will be generated here -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="closeHistoryBtn" style="width: 100%;">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

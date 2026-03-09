@@ -1,0 +1,28 @@
+{
+  "from": "esp32 | client",
+  "type": "event | command | response | sync",
+  "action": "rfid | fingerprint | sync",
+  "payload": { }
+}
+
+
+/* ESP32 -> Client */
+// RFID
+{
+  "from": "esp32",
+  "type": "event",
+  "action": "rfid",
+  "payload": {
+    "uid": "A1B2C3D4"
+  }
+}
+// Fingerprint
+{
+  "from": "esp32",
+  "type": "event",
+  "action": "fingerprint",
+  "payload": {
+    "fid": 23
+  }
+}
+/* ESP32 -> Client */

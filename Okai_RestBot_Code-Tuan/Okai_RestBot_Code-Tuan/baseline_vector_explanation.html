@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baseline Vector Method</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 1.2em;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: #f8f9ff;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+        }
+        
+        h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        
+        h3 {
+            color: #764ba2;
+            margin: 20px 0 10px 0;
+            font-size: 1.3em;
+        }
+        
+        .canvas-container {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        canvas {
+            display: block;
+            margin: 0 auto;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+        }
+        
+        .formula {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1em;
+            border-left: 4px solid #764ba2;
+            overflow-x: auto;
+        }
+        
+        .key-point {
+            background: #fff4e6;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #ff9800;
+        }
+        
+        .key-point strong {
+            color: #e65100;
+        }
+        
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .comparison-item {
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        .comparison-item.wrong {
+            background: #ffebee;
+            border: 2px solid #f44336;
+        }
+        
+        .comparison-item.correct {
+            background: #e8f5e9;
+            border: 2px solid #4caf50;
+        }
+        
+        .comparison-item h4 {
+            margin-bottom: 10px;
+        }
+        
+        .wrong h4 {
+            color: #c62828;
+        }
+        
+        .correct h4 {
+            color: #2e7d32;
+        }
+        
+        ul {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+        
+        li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .info-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .step {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            border-left: 5px solid #667eea;
+        }
+        
+        .step-number {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📐 Baseline Vector Method</h1>
+        <p class="subtitle">Phương pháp tính Heading từ 2 Tag UWB</p>
+        
+        <!-- SECTION 1: Khái niệm -->
+        <div class="section">
+            <h2>🎯 1. Baseline Vector là gì?</h2>
+            
+            <div class="key-point">
+                <strong>Định nghĩa:</strong> Baseline Vector là <strong>vector nối giữa 2 Tag UWB</strong> được gắn cố định trên cùng một vật thể (robot, xe, drone...).
+            </div>
+            
+            <div class="canvas-container">
+                <canvas id="conceptCanvas" width="700" height="400"></canvas>
+            </div>
+            
+            <ul>
+                <li><strong>Tag 5 (Trước):</strong> Gắn ở phía trước robot - dùng làm điểm tham chiếu chính</li>
+                <li><strong>Tag 6 (Sau):</strong> Gắn ở phía sau robot - cách Tag 5 một khoảng cố định L</li>
+                <li><strong>Baseline = Vector từ Tag 5 → Tag 6</strong></li>
+                <li><strong>Heading = Hướng của Baseline + 180°</strong> (vì baseline hướng về phía sau)</li>
+            </ul>
+        </div>
+        
+        <!-- SECTION 2: Tại sao dùng Baseline Vector? -->
+        <div class="section">
+            <h2>💡 2. Tại sao dùng Baseline Vector?</h2>
+            
+            <div class="comparison">
+                <div class="comparison-item wrong">
+                    <h4>❌ Phương pháp CŨ (Sai)</h4>
+                    <div class="formula">cos(α) = ΔR / L<br>H = angle_to_anchor - α</div>
+                    <ul>
+                        <li>Chỉ dùng 1 thông tin: hiệu khoảng cách ΔR</li>
+                        <li>Mất thông tin thành phần vuông góc</li>
+                        <li>Không có cơ sở hình học rõ ràng</li>
+                        <li>Kết quả không ổn định</li>
+                    </ul>
+                </div>
+                
+                <div class="comparison-item correct">
+                    <h4>✅ Baseline Vector (Đúng)</h4>
+                    <div class="formula">Baseline = (parallel, perpendicular)<br>H = atan2(baseline) + 180°</div>
+                    <ul>
+                        <li>Dùng đầy đủ 2 thành phần vector</li>
+                        <li>Có cơ sở toán học vững chắc</li>
+                        <li>Kết quả chính xác và ổn định</li>
+                        <li>Được dùng trong GPS RTK, UAV...</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SECTION 3: Toán học -->
+        <div class="section">
+            <h2>📊 3. Toán học đằng sau Baseline Vector</h2>
+            
+            <h3>Bước 1: Phân tích Vector Baseline</h3>
+            <div class="canvas-container">
+                <canvas id="mathCanvas" width="700" height="400"></canvas>
+            </div>
+            
+            <p>Baseline vector <strong>B</strong> có thể phân tích thành 2 thành phần:</p>
+            
+            <div class="formula">
+                <strong>Thành phần Song song (Parallel):</strong><br>
+                B_parallel = (R1 - R2) × û_anchor<br>
+                <br>
+                <strong>Thành phần Vuông góc (Perpendicular):</strong><br>
+                B_perp = ±√(L² - (R1-R2)²) × û_perp<br>
+                <br>
+                <strong>Baseline tổng:</strong><br>
+                B = B_parallel + B_perp
+            </div>
+            
+            <div class="key-point">
+                <strong>Quan trọng:</strong> Dấu ± của thành phần vuông góc tạo ra 2 candidate. Ta phải chọn candidate nào khớp với khoảng cách R2 thực tế!
+            </div>
+            
+            <h3>Bước 2: Tính Heading</h3>
+            <div class="formula">
+                baseline_angle = atan2(B.x, B.y) × 180/π<br>
+                <br>
+                <strong>Heading = baseline_angle + 180°</strong><br>
+                <em>(Vì baseline hướng về phía SAU, heading hướng về phía TRƯỚC)</em>
+            </div>
+        </div>
+        
+        <!-- SECTION 4: Thuật toán -->
+        <div class="section">
+            <h2>⚙️ 4. Thuật toán từng bước</h2>
+            
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>Lấy dữ liệu:</strong> D1, D2 (khoảng cách 3D), L (chiều dài baseline), vị trí robot và anchor
+            </div>
+            
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>Loại bỏ thành phần Z:</strong> R1 = √(D1² - dZ²), R2 = √(D2² - dZ²)
+            </div>
+            
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>Tính vector đến anchor:</strong> û_anchor = (anchor - robot) / |anchor - robot|
+            </div>
+            
+            <div class="step">
+                <span class="step-number">4</span>
+                <strong>Tính 2 thành phần:</strong>
+                <ul>
+                    <li>Parallel: ΔR = R1 - R2</li>
+                    <li>Perpendicular: √(L² - ΔR²)</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">5</span>
+                <strong>Tạo 2 candidates:</strong> baseline_1 và baseline_2 (với dấu ± của perpendicular)
+            </div>
+            
+            <div class="step">
+                <span class="step-number">6</span>
+                <strong>Chọn candidate đúng:</strong> Tính vị trí Tag 6 từ mỗi candidate, chọn candidate có khoảng cách đến anchor gần R2 nhất
+            </div>
+            
+            <div class="step">
+                <span class="step-number">7</span>
+                <strong>Tính heading:</strong> H = atan2(baseline.x, baseline.y) × 180/π + 180°
+            </div>
+        </div>
+        
+        <!-- SECTION 5: Demo -->
+        <div class="section">
+            <h2>🎮 5. Demo Tương Tác</h2>
+            
+            <div class="info-box">
+                <strong>Hướng dẫn:</strong> Nhấn các nút để xem robot quay và Baseline Vector thay đổi
+            </div>
+            
+            <div class="controls">
+                <button onclick="setHeading(0)">Hướng Bắc (0°)</button>
+                <button onclick="setHeading(90)">Hướng Đông (90°)</button>
+                <button onclick="setHeading(180)">Hướng Nam (180°)</button>
+                <button onclick="setHeading(270)">Hướng Tây (270°)</button>
+                <button onclick="animateRotation()">🔄 Quay liên tục</button>
+            </div>
+            
+            <div class="canvas-container">
+                <canvas id="demoCanvas" width="700" height="500"></canvas>
+            </div>
+            
+            <div id="output" style="text-align: center; margin-top: 20px; font-size: 1.2em; color: #667eea; font-weight: bold;"></div>
+        </div>
+        
+        <!-- SECTION 6: Ứng dụng -->
+        <div class="section">
+            <h2>🚀 6. Ứng dụng thực tế</h2>
+            
+            <ul>
+                <li><strong>Robot tự hành:</strong> Xác định hướng chính xác để điều khiển</li>
+                <li><strong>Drone/UAV:</strong> GPS RTK dual-antenna heading</li>
+                <li><strong>Tàu thủy:</strong> Hệ thống định vị GPS GNSS</li>
+                <li><strong>Xe tự lái:</strong> Xác định heading khi đứng yên (IMU không hoạt động)</li>
+                <li><strong>Khảo sát:</strong> Total station, LiDAR orientation</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+        // ===== CANVAS 1: Concept =====
+        const ctx1 = document.getElementById('conceptCanvas').getContext('2d');
+        
+        function drawConcept() {
+            ctx1.clearRect(0, 0, 700, 400);
+            
+            // Draw anchor
+            ctx1.fillStyle = '#f44336';
+            ctx1.beginPath();
+            ctx1.arc(550, 100, 15, 0, Math.PI * 2);
+            ctx1.fill();
+            ctx1.fillStyle = '#000';
+            ctx1.font = 'bold 16px Arial';
+            ctx1.fillText('Anchor', 510, 80);
+            
+            // Draw robot
+            const robotX = 200;
+            const robotY = 250;
+            const L = 80; // Baseline length
+            
+            // Tag 5 (front)
+            ctx1.fillStyle = '#4caf50';
+            ctx1.beginPath();
+            ctx1.arc(robotX, robotY - L/2, 12, 0, Math.PI * 2);
+            ctx1.fill();
+            ctx1.fillStyle = '#000';
+            ctx1.fillText('Tag 5 (Trước)', robotX + 20, robotY - L/2 - 10);
+            
+            // Tag 6 (back)
+            ctx1.fillStyle = '#2196f3';
+            ctx1.beginPath();
+            ctx1.arc(robotX, robotY + L/2, 12, 0, Math.PI * 2);
+            ctx1.fill();
+            ctx1.fillText('Tag 6 (Sau)', robotX + 20, robotY + L/2 + 20);
+            
+            // Baseline vector
+            ctx1.strokeStyle = '#9c27b0';
+            ctx1.lineWidth = 3;
+            ctx1.beginPath();
+            ctx1.moveTo(robotX, robotY - L/2);
+            ctx1.lineTo(robotX, robotY + L/2);
+            ctx1.stroke();
+            
+            // Arrow
+            ctx1.beginPath();
+            ctx1.moveTo(robotX, robotY + L/2);
+            ctx1.lineTo(robotX - 8, robotY + L/2 - 15);
+            ctx1.lineTo(robotX + 8, robotY + L/2 - 15);
+            ctx1.closePath();
+            ctx1.fillStyle = '#9c27b0';
+            ctx1.fill();
+            
+            ctx1.fillStyle = '#9c27b0';
+            ctx1.font = 'bold 14px Arial';
+            ctx1.fillText('Baseline Vector', robotX - 100, robotY);
+            ctx1.fillText('L = ' + (L/10).toFixed(1) + 'm', robotX - 50, robotY + 5);
+            
+            // Distance lines
+            ctx1.strokeStyle = '#ff9800';
+            ctx1.setLineDash([5, 5]);
+            ctx1.lineWidth = 2;
+            
+            ctx1.beginPath();
+            ctx1.moveTo(robotX, robotY - L/2);
+            ctx1.lineTo(550, 100);
+            ctx1.stroke();
+            ctx1.fillStyle = '#ff9800';
+            ctx1.font = '14px Arial';
+            ctx1.fillText('D1', 350, 150);
+            
+            ctx1.beginPath();
+            ctx1.moveTo(robotX, robotY + L/2);
+            ctx1.lineTo(550, 100);
+            ctx1.stroke();
+            ctx1.fillText('D2', 350, 200);
+            
+            ctx1.setLineDash([]);
+            
+            // Heading arrow
+            ctx1.strokeStyle = '#ff5722';
+            ctx1.fillStyle = '#ff5722';
+            ctx1.lineWidth = 4;
+            ctx1.beginPath();
+            ctx1.moveTo(robotX, robotY - L/2);
+            ctx1.lineTo(robotX, robotY - L/2 - 80);
+            ctx1.stroke();
+            
+            ctx1.beginPath();
+            ctx1.moveTo(robotX, robotY - L/2 - 80);
+            ctx1.lineTo(robotX - 10, robotY - L/2 - 65);
+            ctx1.lineTo(robotX + 10, robotY - L/2 - 65);
+            ctx1.closePath();
+            ctx1.fill();
+            
+            ctx1.fillText('HEADING', robotX + 15, robotY - L/2 - 70);
+            ctx1.fillText('(Hướng robot)', robotX + 15, robotY - L/2 - 55);
+        }
+        
+        drawConcept();
+        
+        // ===== CANVAS 2: Math =====
+        const ctx2 = document.getElementById('mathCanvas').getContext('2d');
+        
+        function drawMath() {
+            ctx2.clearRect(0, 0, 700, 400);
+            
+            const originX = 150;
+            const originY = 300;
+            const anchorX = 500;
+            const anchorY = 100;
+            
+            // Anchor
+            ctx2.fillStyle = '#f44336';
+            ctx2.beginPath();
+            ctx2.arc(anchorX, anchorY, 12, 0, Math.PI * 2);
+            ctx2.fill();
+            ctx2.fillStyle = '#000';
+            ctx2.font = 'bold 14px Arial';
+            ctx2.fillText('Anchor', anchorX - 30, anchorY - 20);
+            
+            // Robot (Tag 5)
+            ctx2.fillStyle = '#4caf50';
+            ctx2.beginPath();
+            ctx2.arc(originX, originY, 10, 0, Math.PI * 2);
+            ctx2.fill();
+            ctx2.fillText('Tag 5', originX - 40, originY);
+            
+            // Vector to anchor
+            ctx2.strokeStyle = '#ff9800';
+            ctx2.lineWidth = 2;
+            ctx2.beginPath();
+            ctx2.moveTo(originX, originY);
+            ctx2.lineTo(anchorX, anchorY);
+            ctx2.stroke();
+            
+            const dx = anchorX - originX;
+            const dy = anchorY - originY;
+            const dist = Math.sqrt(dx*dx + dy*dy);
+            const ux = dx / dist;
+            const uy = dy / dist;
+            
+            // Parallel component
+            const parallel = 60;
+            ctx2.strokeStyle = '#2196f3';
+            ctx2.lineWidth = 3;
+            ctx2.beginPath();
+            ctx2.moveTo(originX, originY);
+            ctx2.lineTo(originX + ux * parallel, originY + uy * parallel);
+            ctx2.stroke();
+            ctx2.fillStyle = '#2196f3';
+            ctx2.fillText('Parallel (ΔR)', originX + ux * parallel/2 - 20, originY + uy * parallel/2 + 20);
+            
+            // Perpendicular component
+            const perpX = -uy;
+            const perpY = ux;
+            const perpLen = 50;
+            ctx2.strokeStyle = '#9c27b0';
+            ctx2.beginPath();
+            ctx2.moveTo(originX + ux * parallel, originY + uy * parallel);
+            ctx2.lineTo(originX + ux * parallel + perpX * perpLen, originY + uy * parallel + perpY * perpLen);
+            ctx2.stroke();
+            ctx2.fillStyle = '#9c27b0';
+            ctx2.fillText('Perpendicular', originX + ux * parallel + perpX * perpLen/2 - 50, originY + uy * parallel + perpY * perpLen/2 - 10);
+            
+            // Baseline (total)
+            const baseX = ux * parallel + perpX * perpLen;
+            const baseY = uy * parallel + perpY * perpLen;
+            ctx2.strokeStyle = '#4caf50';
+            ctx2.lineWidth = 4;
+            ctx2.beginPath();
+            ctx2.moveTo(originX, originY);
+            ctx2.lineTo(originX + baseX, originY + baseY);
+            ctx2.stroke();
+            
+            // Arrow
+            const angle = Math.atan2(baseY, baseX);
+            ctx2.fillStyle = '#4caf50';
+            ctx2.beginPath();
+            ctx2.moveTo(originX + baseX, originY + baseY);
+            ctx2.lineTo(originX + baseX - 12*Math.cos(angle-0.3), originY + baseY - 12*Math.sin(angle-0.3));
+            ctx2.lineTo(originX + baseX - 12*Math.cos(angle+0.3), originY + baseY - 12*Math.sin(angle+0.3));
+            ctx2.closePath();
+            ctx2.fill();
+            
+            ctx2.font = 'bold 16px Arial';
+            ctx2.fillText('BASELINE', originX + baseX/2 - 40, originY + baseY/2 + 40);
+            
+            // Tag 6
+            ctx2.fillStyle = '#2196f3';
+            ctx2.beginPath();
+            ctx2.arc(originX + baseX, originY + baseY, 10, 0, Math.PI * 2);
+            ctx2.fill();
+            ctx2.fillStyle = '#000';
+            ctx2.font = 'bold 14px Arial';
+            ctx2.fillText('Tag 6', originX + baseX + 15, originY + baseY);
+        }
+        
+        drawMath();
+        
+        // ===== CANVAS 3: Interactive Demo =====
+        const ctx3 = document.getElementById('demoCanvas').getContext('2d');
+        let currentHeading = 0;
+        let animating = false;
+        
+        function drawDemo(heading) {
+            ctx3.clearRect(0, 0, 700, 500);
+            
+            // Grid
+            ctx3.strokeStyle = '#e0e0e0';
+            ctx3.lineWidth = 1;
+            for (let i = 0; i < 700; i += 50) {
+                ctx3.beginPath();
+                ctx3.moveTo(i, 0);
+                ctx3.lineTo(i, 500);
+                ctx3.stroke();
+            }
+            for (let i = 0; i < 500; i += 50) {
+                ctx3.beginPath();
+                ctx3.moveTo(0, i);
+                ctx3.lineTo(700, i);
+                ctx3.stroke();
+            }
+            
+            // Compass
+            ctx3.fillStyle = '#666';
+            ctx3.font = 'bold 16px Arial';
+            ctx3.fillText('N', 345, 30);
+            ctx3.fillText('E', 670, 255);
+            ctx3.fillText('S', 345, 480);
+            ctx3.fillText('W', 20, 255);
+            
+            // Anchor
+            const anchorX = 550;
+            const anchorY = 150;
+            ctx3.fillStyle = '#f44336';
+            ctx3.beginPath();
+            ctx3.arc(anchorX, anchorY, 15, 0, Math.PI * 2);
+            ctx3.fill();
+            ctx3.fillStyle = '#fff';
+            ctx3.font = 'bold 12px Arial';
+            ctx3.fillText('A', anchorX - 5, anchorY + 5);
+            
+            // Robot center
+            const robotX = 300;
+            const robotY = 350;
+            const L = 60; // Baseline length in pixels
+            
+            // Convert heading to radians (0° = North = -Y direction)
+            const headingRad = (heading - 90) * Math.PI / 180;
+            
+            // Tag positions
+            const tag5X = robotX + Math.cos(headingRad) * L/2;
+            const tag5Y = robotY + Math.sin(headingRad) * L/2;
+            const tag6X = robotX - Math.cos(headingRad) * L/2;
+            const tag6Y = robotY - Math.sin(headingRad) * L/2;
+            
+            // Draw baseline
+            ctx3.strokeStyle = '#9c27b0';
+            ctx3.lineWidth = 4;
+            ctx3.beginPath();
+            ctx3.moveTo(tag5X, tag5Y);
+            ctx3.lineTo(tag6X, tag6Y);
+            ctx3.stroke();
+            
+            // Draw robot body
+            ctx3.fillStyle = 'rgba(0, 150, 136, 0.3)';
+            ctx3.beginPath();
+            ctx3.arc(robotX, robotY, L/2 + 10, 0, Math.PI * 2);
+            ctx3.fill();
+            
+            // Tag 5
+            ctx3.fillStyle = '#4caf50';
+            ctx3.beginPath();
+            ctx3.arc(tag5X, tag5Y, 12, 0, Math.PI * 2);
+            ctx3.fill();
+            ctx3.fillStyle = '#fff';
+            ctx3.font = 'bold 10px Arial';
+            ctx3.fillText('5', tag5X - 4, tag5Y + 4);
+            
+            // Tag 6
+            ctx3.fillStyle = '#2196f3';
+            ctx3.beginPath();
+            ctx3.arc(tag6X, tag6Y, 12, 0, Math.PI * 2);
+            ctx3.fill();
+            ctx3.fillStyle = '#fff';
+            ctx3.fillText('6', tag6X - 4, tag6Y + 4);
+            
+            // Heading arrow
+            ctx3.strokeStyle = '#ff5722';
+            ctx3.fillStyle = '#ff5722';
+            ctx3.lineWidth = 5;
+            const arrowLen = 80;
+            const arrowEndX = tag5X + Math.cos(headingRad) * arrowLen;
+            const arrowEndY = tag5Y + Math.sin(headingRad) * arrowLen;
+            
+            ctx3.beginPath();
+            ctx3.moveTo(tag5X, tag5Y);
+            ctx3.lineTo(arrowEndX, arrowEndY);
+            ctx3.stroke();
+            
+            ctx3.beginPath();
+            ctx3.moveTo(arrowEndX, arrowEndY);
+            ctx3.lineTo(arrowEndX - 15*Math.cos(headingRad - 0.4), arrowEndY - 15*Math.sin(headingRad - 0.4));
+            ctx3.lineTo(arrowEndX - 15*Math.cos(headingRad + 0.4), arrowEndY - 15*Math.sin(headingRad + 0.4));
+            ctx3.closePath();
+            ctx3.fill();
+            
+            // Distance lines
+            ctx3.strokeStyle = '#ff9800';
+            ctx3.setLineDash([5, 5]);
+            ctx3.lineWidth = 2;
+            
+            ctx3.beginPath();
+            ctx3.moveTo(tag5X, tag5Y);
+            ctx3.lineTo(anchorX, anchorY);
+            ctx3.stroke();
+            
+            const d1 = Math.sqrt((anchorX - tag5X)**2 + (anchorY - tag5Y)**2) / 50;
+            
+            ctx3.beginPath();
+            ctx3.moveTo(tag6X, tag6Y);
+            ctx3.lineTo(anchorX, anchorY);
+            ctx3.stroke();
+            
+            const d2 = Math.sqrt((anchorX - tag6X)**2 + (anchorY - tag6Y)**2) / 50;
+            
+            ctx3.setLineDash([]);
+            
+            // Labels
+            ctx3.fillStyle = '#ff9800';
+            ctx3.font = 'bold 14px Arial';
+            ctx3.fillText('D1=' + d1.toFixed(2) + 'm', (tag5X + anchorX)/2 - 30, (tag5Y + anchorY)/2 - 10);
+            ctx3.fillText('D2=' + d2.toFixed(2) + 'm', (tag6X + anchorX)/2 - 30, (tag6Y + anchorY)/2 + 20);
+            
+            // Heading value
+            ctx3.fillStyle = '#ff5722';
+            ctx3.font = 'bold 20px Arial';
+            ctx3.fillText('Heading: ' + heading.toFixed(0) + '°', robotX - 50, robotY - 60);
+            
+            // Baseline angle
+            const baselineAngle = Math.atan2(tag6X - tag5X, tag5Y - tag6Y) * 180 / Math.PI;
+            ctx3.fillStyle = '#9c27b0';
+            ctx3.fillText('Baseline: ' + ((baselineAngle + 360) % 360).toFixed(0) + '°', robotX - 60, robotY - 80);
+            
+            // Output info
+            document.getElementById('output').innerHTML = 
+                `D1=${d1.toFixed(2)}m | D2=${d2.toFixed(2)}m | ΔR=${(d1-d2).toFixed(3)}m | Heading=${heading.toFixed(0)}°`;
+        }
+        
+        function setHeading(h) {
+            animating = false;
+            currentHeading = h;
+            drawDemo(h);
+        }
+        
+        function animateRotation() {
+            animating = true;
+            animate();
+        }
+        
+        function animate() {
+            if (!animating) return;
+            currentHeading = (currentHeading + 2) % 360;
+            drawDemo(currentHeading);
+            requestAnimationFrame(animate);
+        }
+        
+        // Initial draw
+        drawDemo(0);
+    </script>
+</body>
+</html>
+            

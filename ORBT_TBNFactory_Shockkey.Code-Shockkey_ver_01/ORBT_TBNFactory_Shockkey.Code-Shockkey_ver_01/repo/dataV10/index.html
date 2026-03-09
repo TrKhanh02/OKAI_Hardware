@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Khóa Thông Minh</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>Quản lý Người dùng Khóa Thông Minh</h1>
+
+    <div class="form-container">
+        <h3>Đăng ký thành viên mới</h3>
+        <div class="form-group">
+            <div class="input-item">
+                <label>Tên người dùng</label>
+                <input type="text" id="userName" placeholder="Ví dụ: Nguyễn Văn A">
+            </div>
+            <div class="input-item">
+                <label>Loại xác thực</label>
+                <select id="authType">
+                    <option value="Vân tay">Vân tay</option>
+                    <option value="Thẻ RFID">Thẻ RFID</option>
+                </select>
+            </div>
+            <div class="input-item">
+                <label>Mã ID (Sensor ID)</label>
+                <input type="text" id="authID" placeholder="ID hoặc mã thẻ">
+            </div>
+            <button class="btn-add" onclick="addUser()">Thêm mới</button>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tên người dùng</th>
+                    <th>Phương thức</th>
+                    <th>Mã định danh</th>
+                    <th>Trạng thái</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody id="userTableBody">
+                </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
