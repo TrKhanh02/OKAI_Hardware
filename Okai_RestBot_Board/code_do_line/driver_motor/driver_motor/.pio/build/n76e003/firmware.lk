@@ -1,0 +1,32 @@
+-muwx
+-i .pio\build\n76e003\firmware.hex
+-M
+-I 0x0100
+-X 0x0300
+-C 0x4800
+-b HOME = 0x0000
+-b XSEG = 0x0001
+-b PSEG = 0x0001
+-b ISEG = 0x0000
+-b BSEG = 0x0000
+-k .pio\build\n76e003
+-k C:\Users\Admin\.platformio\packages\toolchain-sdcc\bin\..\lib\small
+-l mcs51
+-l libsdcc
+-l libint
+-l liblong
+-l libfloat
+.pio\build\n76e003\lib450\N76E003\Common.rel
+.pio\build\n76e003\lib450\N76E003\Delay.rel
+.pio\build\n76e003\lib450\N76E003\adc.rel
+.pio\build\n76e003\lib450\N76E003\pwm.rel
+.pio\build\n76e003\lib450\N76E003\sdcc_stdio.rel
+.pio\build\n76e003\lib450\N76E003\sys.rel
+.pio\build\n76e003\lib450\N76E003\uart0.rel
+.pio\build\n76e003\src\1main.rel
+.pio\build\n76e003\src\hall_speed.rel
+.pio\build\n76e003\src\json.rel
+.pio\build\n76e003\src\math.rel
+.pio\build\n76e003\src\millis.rel
+
+-e

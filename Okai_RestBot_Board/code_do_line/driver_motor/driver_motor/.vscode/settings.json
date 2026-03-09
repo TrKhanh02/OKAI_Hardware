@@ -1,0 +1,19 @@
+{
+    "C_Cpp.errorSquiggles": "disabled",
+    "files.associations": {
+        "n76e003.h": "c",
+        "sfr_macro.h": "c",
+        "function_define.h": "c",
+        "common.h": "c",
+        "delay.h": "c",
+        "float.h": "c",
+        "stdio.h": "c"
+    },
+    "python-envs.pythonProjects": [
+        {
+            "path": "",
+            "envManager": "ms-python.python:system",
+            "packageManager": "ms-python.python:pip"
+        }
+    ]
+}

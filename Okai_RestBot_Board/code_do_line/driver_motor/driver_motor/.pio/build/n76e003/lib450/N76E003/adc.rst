@@ -1,0 +1,1296 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ISO C Compiler 
+                                      3 ; Version 4.4.0 #14620 (MINGW32)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module adc
+                                      6 	.optsdcc -mmcs51 --model-small
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _ADC_ComapreMode_PARM_2
+                                     12 	.globl _ADC_ConvertTime_PARM_2
+                                     13 	.globl _MOSI
+                                     14 	.globl _P00
+                                     15 	.globl _MISO
+                                     16 	.globl _P01
+                                     17 	.globl _RXD_1
+                                     18 	.globl _P02
+                                     19 	.globl _P03
+                                     20 	.globl _STADC
+                                     21 	.globl _P04
+                                     22 	.globl _P05
+                                     23 	.globl _TXD
+                                     24 	.globl _P06
+                                     25 	.globl _RXD
+                                     26 	.globl _P07
+                                     27 	.globl _IT0
+                                     28 	.globl _IE0
+                                     29 	.globl _IT1
+                                     30 	.globl _IE1
+                                     31 	.globl _TR0
+                                     32 	.globl _TF0
+                                     33 	.globl _TR1
+                                     34 	.globl _TF1
+                                     35 	.globl _P10
+                                     36 	.globl _P11
+                                     37 	.globl _P12
+                                     38 	.globl _SCL
+                                     39 	.globl _P13
+                                     40 	.globl _SDA
+                                     41 	.globl _P14
+                                     42 	.globl _P15
+                                     43 	.globl _TXD_1
+                                     44 	.globl _P16
+                                     45 	.globl _P17
+                                     46 	.globl _RI
+                                     47 	.globl _TI
+                                     48 	.globl _RB8
+                                     49 	.globl _TB8
+                                     50 	.globl _REN
+                                     51 	.globl _SM2
+                                     52 	.globl _SM1
+                                     53 	.globl _FE
+                                     54 	.globl _SM0
+                                     55 	.globl _P20
+                                     56 	.globl _EX0
+                                     57 	.globl _ET0
+                                     58 	.globl _EX1
+                                     59 	.globl _ET1
+                                     60 	.globl _ES
+                                     61 	.globl _EBOD
+                                     62 	.globl _EADC
+                                     63 	.globl _EA
+                                     64 	.globl _P30
+                                     65 	.globl _PX0
+                                     66 	.globl _PT0
+                                     67 	.globl _PX1
+                                     68 	.globl _PT1
+                                     69 	.globl _PS
+                                     70 	.globl _PBOD
+                                     71 	.globl _PADC
+                                     72 	.globl _I2CPX
+                                     73 	.globl _AA
+                                     74 	.globl _SI
+                                     75 	.globl _STO
+                                     76 	.globl _STA
+                                     77 	.globl _I2CEN
+                                     78 	.globl _CM_RL2
+                                     79 	.globl _TR2
+                                     80 	.globl _TF2
+                                     81 	.globl _P
+                                     82 	.globl _OV
+                                     83 	.globl _RS0
+                                     84 	.globl _RS1
+                                     85 	.globl _F0
+                                     86 	.globl _AC
+                                     87 	.globl _CY
+                                     88 	.globl _CLRPWM
+                                     89 	.globl _PWMF
+                                     90 	.globl _LOAD
+                                     91 	.globl _PWMRUN
+                                     92 	.globl _ADCHS0
+                                     93 	.globl _ADCHS1
+                                     94 	.globl _ADCHS2
+                                     95 	.globl _ADCHS3
+                                     96 	.globl _ETGSEL0
+                                     97 	.globl _ETGSEL1
+                                     98 	.globl _ADCS
+                                     99 	.globl _ADCF
+                                    100 	.globl _RI_1
+                                    101 	.globl _TI_1
+                                    102 	.globl _RB8_1
+                                    103 	.globl _TB8_1
+                                    104 	.globl _REN_1
+                                    105 	.globl _SM2_1
+                                    106 	.globl _SM1_1
+                                    107 	.globl _FE_1
+                                    108 	.globl _SM0_1
+                                    109 	.globl _EIPH1
+                                    110 	.globl _EIP1
+                                    111 	.globl _PORDIS
+                                    112 	.globl _PMD
+                                    113 	.globl _PMEN
+                                    114 	.globl _PDTCNT
+                                    115 	.globl _PDTEN
+                                    116 	.globl _SCON_1
+                                    117 	.globl _EIPH
+                                    118 	.globl _AINDIDS
+                                    119 	.globl _SPDR
+                                    120 	.globl _SPSR
+                                    121 	.globl _SPCR2
+                                    122 	.globl _SPCR
+                                    123 	.globl _CAPCON4
+                                    124 	.globl _CAPCON3
+                                    125 	.globl _B
+                                    126 	.globl _EIP
+                                    127 	.globl _C2H
+                                    128 	.globl _C2L
+                                    129 	.globl _PIF
+                                    130 	.globl _PIPEN
+                                    131 	.globl _PINEN
+                                    132 	.globl _PICON
+                                    133 	.globl _ADCCON0
+                                    134 	.globl _C1H
+                                    135 	.globl _C1L
+                                    136 	.globl _C0H
+                                    137 	.globl _C0L
+                                    138 	.globl _ADCDLY
+                                    139 	.globl _ADCCON2
+                                    140 	.globl _ADCCON1
+                                    141 	.globl _ACC
+                                    142 	.globl _PWMCON1
+                                    143 	.globl _PIOCON0
+                                    144 	.globl _PWM3L
+                                    145 	.globl _PWM2L
+                                    146 	.globl _PWM1L
+                                    147 	.globl _PWM0L
+                                    148 	.globl _PWMPL
+                                    149 	.globl _PWMCON0
+                                    150 	.globl _FBD
+                                    151 	.globl _PNP
+                                    152 	.globl _PWM3H
+                                    153 	.globl _PWM2H
+                                    154 	.globl _PWM1H
+                                    155 	.globl _PWM0H
+                                    156 	.globl _PWMPH
+                                    157 	.globl _PSW
+                                    158 	.globl _ADCMPH
+                                    159 	.globl _ADCMPL
+                                    160 	.globl _PWM5L
+                                    161 	.globl _TH2
+                                    162 	.globl _PWM4L
+                                    163 	.globl _TL2
+                                    164 	.globl _RCMP2H
+                                    165 	.globl _RCMP2L
+                                    166 	.globl _T2MOD
+                                    167 	.globl _T2CON
+                                    168 	.globl _TA
+                                    169 	.globl _PIOCON1
+                                    170 	.globl _RH3
+                                    171 	.globl _PWM5H
+                                    172 	.globl _RL3
+                                    173 	.globl _PWM4H
+                                    174 	.globl _T3CON
+                                    175 	.globl _ADCRH
+                                    176 	.globl _ADCRL
+                                    177 	.globl _I2ADDR
+                                    178 	.globl _I2CON
+                                    179 	.globl _I2TOC
+                                    180 	.globl _I2CLK
+                                    181 	.globl _I2STAT
+                                    182 	.globl _I2DAT
+                                    183 	.globl _SADDR_1
+                                    184 	.globl _SADEN_1
+                                    185 	.globl _SADEN
+                                    186 	.globl _IP
+                                    187 	.globl _PWMINTC
+                                    188 	.globl _IPH
+                                    189 	.globl _P2S
+                                    190 	.globl _P1SR
+                                    191 	.globl _P1M2
+                                    192 	.globl _P1S
+                                    193 	.globl _P1M1
+                                    194 	.globl _P0SR
+                                    195 	.globl _P0M2
+                                    196 	.globl _P0S
+                                    197 	.globl _P0M1
+                                    198 	.globl _P3
+                                    199 	.globl _IAPCN
+                                    200 	.globl _IAPFD
+                                    201 	.globl _P3SR
+                                    202 	.globl _P3M2
+                                    203 	.globl _P3S
+                                    204 	.globl _P3M1
+                                    205 	.globl _BODCON1
+                                    206 	.globl _WDCON
+                                    207 	.globl _SADDR
+                                    208 	.globl _IE
+                                    209 	.globl _IAPAH
+                                    210 	.globl _IAPAL
+                                    211 	.globl _IAPUEN
+                                    212 	.globl _IAPTRG
+                                    213 	.globl _BODCON0
+                                    214 	.globl _AUXR1
+                                    215 	.globl _P2
+                                    216 	.globl _CHPCON
+                                    217 	.globl _EIE1
+                                    218 	.globl _EIE
+                                    219 	.globl _SBUF_1
+                                    220 	.globl _SBUF
+                                    221 	.globl _SCON
+                                    222 	.globl _CKEN
+                                    223 	.globl _CKSWT
+                                    224 	.globl _CKDIV
+                                    225 	.globl _CAPCON2
+                                    226 	.globl _CAPCON1
+                                    227 	.globl _CAPCON0
+                                    228 	.globl _SFRS
+                                    229 	.globl _P1
+                                    230 	.globl _WKCON
+                                    231 	.globl _CKCON
+                                    232 	.globl _TH1
+                                    233 	.globl _TH0
+                                    234 	.globl _TL1
+                                    235 	.globl _TL0
+                                    236 	.globl _TMOD
+                                    237 	.globl _TCON
+                                    238 	.globl _PCON
+                                    239 	.globl _RWK
+                                    240 	.globl _RCTRIM1
+                                    241 	.globl _RCTRIM0
+                                    242 	.globl _DPH
+                                    243 	.globl _DPL
+                                    244 	.globl _SP
+                                    245 	.globl _P0
+                                    246 	.globl _ADC_Init_PARM_2
+                                    247 	.globl _ADC_ConvertTime
+                                    248 	.globl _ADC_StartConv
+                                    249 	.globl _ADC_IsBusy
+                                    250 	.globl _ADC_GetData
+                                    251 	.globl _ADC_ClearFlag
+                                    252 	.globl _ADC_Disable
+                                    253 	.globl _ADC_ComapreMode
+                                    254 	.globl _ADC_Init
+                                    255 	.globl _ADC_SelectChannel
+                                    256 ;--------------------------------------------------------
+                                    257 ; special function registers
+                                    258 ;--------------------------------------------------------
+                                    259 	.area RSEG    (ABS,DATA)
+      000000                        260 	.org 0x0000
+                           000080   261 _P0	=	0x0080
+                           000081   262 _SP	=	0x0081
+                           000082   263 _DPL	=	0x0082
+                           000083   264 _DPH	=	0x0083
+                           000084   265 _RCTRIM0	=	0x0084
+                           000085   266 _RCTRIM1	=	0x0085
+                           000086   267 _RWK	=	0x0086
+                           000087   268 _PCON	=	0x0087
+                           000088   269 _TCON	=	0x0088
+                           000089   270 _TMOD	=	0x0089
+                           00008A   271 _TL0	=	0x008a
+                           00008B   272 _TL1	=	0x008b
+                           00008C   273 _TH0	=	0x008c
+                           00008D   274 _TH1	=	0x008d
+                           00008E   275 _CKCON	=	0x008e
+                           00008F   276 _WKCON	=	0x008f
+                           000090   277 _P1	=	0x0090
+                           000091   278 _SFRS	=	0x0091
+                           000092   279 _CAPCON0	=	0x0092
+                           000093   280 _CAPCON1	=	0x0093
+                           000094   281 _CAPCON2	=	0x0094
+                           000095   282 _CKDIV	=	0x0095
+                           000096   283 _CKSWT	=	0x0096
+                           000097   284 _CKEN	=	0x0097
+                           000098   285 _SCON	=	0x0098
+                           000099   286 _SBUF	=	0x0099
+                           00009A   287 _SBUF_1	=	0x009a
+                           00009B   288 _EIE	=	0x009b
+                           00009C   289 _EIE1	=	0x009c
+                           00009F   290 _CHPCON	=	0x009f
+                           0000A0   291 _P2	=	0x00a0
+                           0000A2   292 _AUXR1	=	0x00a2
+                           0000A3   293 _BODCON0	=	0x00a3
+                           0000A4   294 _IAPTRG	=	0x00a4
+                           0000A5   295 _IAPUEN	=	0x00a5
+                           0000A6   296 _IAPAL	=	0x00a6
+                           0000A7   297 _IAPAH	=	0x00a7
+                           0000A8   298 _IE	=	0x00a8
+                           0000A9   299 _SADDR	=	0x00a9
+                           0000AA   300 _WDCON	=	0x00aa
+                           0000AB   301 _BODCON1	=	0x00ab
+                           0000AC   302 _P3M1	=	0x00ac
+                           0000AC   303 _P3S	=	0x00ac
+                           0000AD   304 _P3M2	=	0x00ad
+                           0000AD   305 _P3SR	=	0x00ad
+                           0000AE   306 _IAPFD	=	0x00ae
+                           0000AF   307 _IAPCN	=	0x00af
+                           0000B0   308 _P3	=	0x00b0
+                           0000B1   309 _P0M1	=	0x00b1
+                           0000B1   310 _P0S	=	0x00b1
+                           0000B2   311 _P0M2	=	0x00b2
+                           0000B2   312 _P0SR	=	0x00b2
+                           0000B3   313 _P1M1	=	0x00b3
+                           0000B3   314 _P1S	=	0x00b3
+                           0000B4   315 _P1M2	=	0x00b4
+                           0000B4   316 _P1SR	=	0x00b4
+                           0000B5   317 _P2S	=	0x00b5
+                           0000B7   318 _IPH	=	0x00b7
+                           0000B7   319 _PWMINTC	=	0x00b7
+                           0000B8   320 _IP	=	0x00b8
+                           0000B9   321 _SADEN	=	0x00b9
+                           0000BA   322 _SADEN_1	=	0x00ba
+                           0000BB   323 _SADDR_1	=	0x00bb
+                           0000BC   324 _I2DAT	=	0x00bc
+                           0000BD   325 _I2STAT	=	0x00bd
+                           0000BE   326 _I2CLK	=	0x00be
+                           0000BF   327 _I2TOC	=	0x00bf
+                           0000C0   328 _I2CON	=	0x00c0
+                           0000C1   329 _I2ADDR	=	0x00c1
+                           0000C2   330 _ADCRL	=	0x00c2
+                           0000C3   331 _ADCRH	=	0x00c3
+                           0000C4   332 _T3CON	=	0x00c4
+                           0000C4   333 _PWM4H	=	0x00c4
+                           0000C5   334 _RL3	=	0x00c5
+                           0000C5   335 _PWM5H	=	0x00c5
+                           0000C6   336 _RH3	=	0x00c6
+                           0000C6   337 _PIOCON1	=	0x00c6
+                           0000C7   338 _TA	=	0x00c7
+                           0000C8   339 _T2CON	=	0x00c8
+                           0000C9   340 _T2MOD	=	0x00c9
+                           0000CA   341 _RCMP2L	=	0x00ca
+                           0000CB   342 _RCMP2H	=	0x00cb
+                           0000CC   343 _TL2	=	0x00cc
+                           0000CC   344 _PWM4L	=	0x00cc
+                           0000CD   345 _TH2	=	0x00cd
+                           0000CD   346 _PWM5L	=	0x00cd
+                           0000CE   347 _ADCMPL	=	0x00ce
+                           0000CF   348 _ADCMPH	=	0x00cf
+                           0000D0   349 _PSW	=	0x00d0
+                           0000D1   350 _PWMPH	=	0x00d1
+                           0000D2   351 _PWM0H	=	0x00d2
+                           0000D3   352 _PWM1H	=	0x00d3
+                           0000D4   353 _PWM2H	=	0x00d4
+                           0000D5   354 _PWM3H	=	0x00d5
+                           0000D6   355 _PNP	=	0x00d6
+                           0000D7   356 _FBD	=	0x00d7
+                           0000D8   357 _PWMCON0	=	0x00d8
+                           0000D9   358 _PWMPL	=	0x00d9
+                           0000DA   359 _PWM0L	=	0x00da
+                           0000DB   360 _PWM1L	=	0x00db
+                           0000DC   361 _PWM2L	=	0x00dc
+                           0000DD   362 _PWM3L	=	0x00dd
+                           0000DE   363 _PIOCON0	=	0x00de
+                           0000DF   364 _PWMCON1	=	0x00df
+                           0000E0   365 _ACC	=	0x00e0
+                           0000E1   366 _ADCCON1	=	0x00e1
+                           0000E2   367 _ADCCON2	=	0x00e2
+                           0000E3   368 _ADCDLY	=	0x00e3
+                           0000E4   369 _C0L	=	0x00e4
+                           0000E5   370 _C0H	=	0x00e5
+                           0000E6   371 _C1L	=	0x00e6
+                           0000E7   372 _C1H	=	0x00e7
+                           0000E8   373 _ADCCON0	=	0x00e8
+                           0000E9   374 _PICON	=	0x00e9
+                           0000EA   375 _PINEN	=	0x00ea
+                           0000EB   376 _PIPEN	=	0x00eb
+                           0000EC   377 _PIF	=	0x00ec
+                           0000ED   378 _C2L	=	0x00ed
+                           0000EE   379 _C2H	=	0x00ee
+                           0000EF   380 _EIP	=	0x00ef
+                           0000F0   381 _B	=	0x00f0
+                           0000F1   382 _CAPCON3	=	0x00f1
+                           0000F2   383 _CAPCON4	=	0x00f2
+                           0000F3   384 _SPCR	=	0x00f3
+                           0000F3   385 _SPCR2	=	0x00f3
+                           0000F4   386 _SPSR	=	0x00f4
+                           0000F5   387 _SPDR	=	0x00f5
+                           0000F6   388 _AINDIDS	=	0x00f6
+                           0000F7   389 _EIPH	=	0x00f7
+                           0000F8   390 _SCON_1	=	0x00f8
+                           0000F9   391 _PDTEN	=	0x00f9
+                           0000FA   392 _PDTCNT	=	0x00fa
+                           0000FB   393 _PMEN	=	0x00fb
+                           0000FC   394 _PMD	=	0x00fc
+                           0000FD   395 _PORDIS	=	0x00fd
+                           0000FE   396 _EIP1	=	0x00fe
+                           0000FF   397 _EIPH1	=	0x00ff
+                                    398 ;--------------------------------------------------------
+                                    399 ; special function bits
+                                    400 ;--------------------------------------------------------
+                                    401 	.area RSEG    (ABS,DATA)
+      000000                        402 	.org 0x0000
+                           0000FF   403 _SM0_1	=	0x00ff
+                           0000FF   404 _FE_1	=	0x00ff
+                           0000FE   405 _SM1_1	=	0x00fe
+                           0000FD   406 _SM2_1	=	0x00fd
+                           0000FC   407 _REN_1	=	0x00fc
+                           0000FB   408 _TB8_1	=	0x00fb
+                           0000FA   409 _RB8_1	=	0x00fa
+                           0000F9   410 _TI_1	=	0x00f9
+                           0000F8   411 _RI_1	=	0x00f8
+                           0000EF   412 _ADCF	=	0x00ef
+                           0000EE   413 _ADCS	=	0x00ee
+                           0000ED   414 _ETGSEL1	=	0x00ed
+                           0000EC   415 _ETGSEL0	=	0x00ec
+                           0000EB   416 _ADCHS3	=	0x00eb
+                           0000EA   417 _ADCHS2	=	0x00ea
+                           0000E9   418 _ADCHS1	=	0x00e9
+                           0000E8   419 _ADCHS0	=	0x00e8
+                           0000DF   420 _PWMRUN	=	0x00df
+                           0000DE   421 _LOAD	=	0x00de
+                           0000DD   422 _PWMF	=	0x00dd
+                           0000DC   423 _CLRPWM	=	0x00dc
+                           0000D7   424 _CY	=	0x00d7
+                           0000D6   425 _AC	=	0x00d6
+                           0000D5   426 _F0	=	0x00d5
+                           0000D4   427 _RS1	=	0x00d4
+                           0000D3   428 _RS0	=	0x00d3
+                           0000D2   429 _OV	=	0x00d2
+                           0000D0   430 _P	=	0x00d0
+                           0000CF   431 _TF2	=	0x00cf
+                           0000CA   432 _TR2	=	0x00ca
+                           0000C8   433 _CM_RL2	=	0x00c8
+                           0000C6   434 _I2CEN	=	0x00c6
+                           0000C5   435 _STA	=	0x00c5
+                           0000C4   436 _STO	=	0x00c4
+                           0000C3   437 _SI	=	0x00c3
+                           0000C2   438 _AA	=	0x00c2
+                           0000C0   439 _I2CPX	=	0x00c0
+                           0000BE   440 _PADC	=	0x00be
+                           0000BD   441 _PBOD	=	0x00bd
+                           0000BC   442 _PS	=	0x00bc
+                           0000BB   443 _PT1	=	0x00bb
+                           0000BA   444 _PX1	=	0x00ba
+                           0000B9   445 _PT0	=	0x00b9
+                           0000B8   446 _PX0	=	0x00b8
+                           0000B0   447 _P30	=	0x00b0
+                           0000AF   448 _EA	=	0x00af
+                           0000AE   449 _EADC	=	0x00ae
+                           0000AD   450 _EBOD	=	0x00ad
+                           0000AC   451 _ES	=	0x00ac
+                           0000AB   452 _ET1	=	0x00ab
+                           0000AA   453 _EX1	=	0x00aa
+                           0000A9   454 _ET0	=	0x00a9
+                           0000A8   455 _EX0	=	0x00a8
+                           0000A0   456 _P20	=	0x00a0
+                           00009F   457 _SM0	=	0x009f
+                           00009F   458 _FE	=	0x009f
+                           00009E   459 _SM1	=	0x009e
+                           00009D   460 _SM2	=	0x009d
+                           00009C   461 _REN	=	0x009c
+                           00009B   462 _TB8	=	0x009b
+                           00009A   463 _RB8	=	0x009a
+                           000099   464 _TI	=	0x0099
+                           000098   465 _RI	=	0x0098
+                           000097   466 _P17	=	0x0097
+                           000096   467 _P16	=	0x0096
+                           000096   468 _TXD_1	=	0x0096
+                           000095   469 _P15	=	0x0095
+                           000094   470 _P14	=	0x0094
+                           000094   471 _SDA	=	0x0094
+                           000093   472 _P13	=	0x0093
+                           000093   473 _SCL	=	0x0093
+                           000092   474 _P12	=	0x0092
+                           000091   475 _P11	=	0x0091
+                           000090   476 _P10	=	0x0090
+                           00008F   477 _TF1	=	0x008f
+                           00008E   478 _TR1	=	0x008e
+                           00008D   479 _TF0	=	0x008d
+                           00008C   480 _TR0	=	0x008c
+                           00008B   481 _IE1	=	0x008b
+                           00008A   482 _IT1	=	0x008a
+                           000089   483 _IE0	=	0x0089
+                           000088   484 _IT0	=	0x0088
+                           000087   485 _P07	=	0x0087
+                           000087   486 _RXD	=	0x0087
+                           000086   487 _P06	=	0x0086
+                           000086   488 _TXD	=	0x0086
+                           000085   489 _P05	=	0x0085
+                           000084   490 _P04	=	0x0084
+                           000084   491 _STADC	=	0x0084
+                           000083   492 _P03	=	0x0083
+                           000082   493 _P02	=	0x0082
+                           000082   494 _RXD_1	=	0x0082
+                           000081   495 _P01	=	0x0081
+                           000081   496 _MISO	=	0x0081
+                           000080   497 _P00	=	0x0080
+                           000080   498 _MOSI	=	0x0080
+                                    499 ;--------------------------------------------------------
+                                    500 ; overlayable register banks
+                                    501 ;--------------------------------------------------------
+                                    502 	.area REG_BANK_0	(REL,OVR,DATA)
+      000000                        503 	.ds 8
+                                    504 ;--------------------------------------------------------
+                                    505 ; internal ram data
+                                    506 ;--------------------------------------------------------
+                                    507 	.area DSEG    (DATA)
+      000008                        508 _ADC_GetData_initialized_10000_108:
+      000008                        509 	.ds 1
+      000009                        510 _ADC_Init_PARM_2:
+      000009                        511 	.ds 1
+                                    512 ;--------------------------------------------------------
+                                    513 ; overlayable items in internal ram
+                                    514 ;--------------------------------------------------------
+                                    515 	.area	OSEG    (OVR,DATA)
+      000044                        516 _ADC_ConvertTime_PARM_2:
+      000044                        517 	.ds 1
+                                    518 	.area	OSEG    (OVR,DATA)
+                                    519 	.area	OSEG    (OVR,DATA)
+      000044                        520 _ADC_ComapreMode_PARM_2:
+      000044                        521 	.ds 2
+                                    522 	.area	OSEG    (OVR,DATA)
+                                    523 ;--------------------------------------------------------
+                                    524 ; indirectly addressable internal ram data
+                                    525 ;--------------------------------------------------------
+                                    526 	.area ISEG    (DATA)
+      000048                        527 _ADC_GetData_raw_10000_108:
+      000048                        528 	.ds 12
+      000054                        529 _ADC_GetData_filtered_10000_108:
+      000054                        530 	.ds 12
+                                    531 ;--------------------------------------------------------
+                                    532 ; absolute internal ram data
+                                    533 ;--------------------------------------------------------
+                                    534 	.area IABS    (ABS,DATA)
+                                    535 	.area IABS    (ABS,DATA)
+                                    536 ;--------------------------------------------------------
+                                    537 ; bit data
+                                    538 ;--------------------------------------------------------
+                                    539 	.area BSEG    (BIT)
+      000001                        540 _ADC_IsBusy_sloc0_1_0:
+      000001                        541 	.ds 1
+                                    542 ;--------------------------------------------------------
+                                    543 ; paged external ram data
+                                    544 ;--------------------------------------------------------
+                                    545 	.area PSEG    (PAG,XDATA)
+                                    546 ;--------------------------------------------------------
+                                    547 ; uninitialized external ram data
+                                    548 ;--------------------------------------------------------
+                                    549 	.area XSEG    (XDATA)
+                                    550 ;--------------------------------------------------------
+                                    551 ; absolute external ram data
+                                    552 ;--------------------------------------------------------
+                                    553 	.area XABS    (ABS,XDATA)
+                                    554 ;--------------------------------------------------------
+                                    555 ; initialized external ram data
+                                    556 ;--------------------------------------------------------
+                                    557 	.area XISEG   (XDATA)
+                                    558 	.area HOME    (CODE)
+                                    559 	.area GSINIT0 (CODE)
+                                    560 	.area GSINIT1 (CODE)
+                                    561 	.area GSINIT2 (CODE)
+                                    562 	.area GSINIT3 (CODE)
+                                    563 	.area GSINIT4 (CODE)
+                                    564 	.area GSINIT5 (CODE)
+                                    565 	.area GSINIT  (CODE)
+                                    566 	.area GSFINAL (CODE)
+                                    567 	.area CSEG    (CODE)
+                                    568 ;--------------------------------------------------------
+                                    569 ; global & static initialisations
+                                    570 ;--------------------------------------------------------
+                                    571 	.area HOME    (CODE)
+                                    572 	.area GSINIT  (CODE)
+                                    573 	.area GSFINAL (CODE)
+                                    574 	.area GSINIT  (CODE)
+                                    575 ;------------------------------------------------------------
+                                    576 ;Allocation info for local variables in function 'ADC_GetData'
+                                    577 ;------------------------------------------------------------
+                                    578 ;initialized               Allocated with name '_ADC_GetData_initialized_10000_108'
+                                    579 ;raw                       Allocated with name '_ADC_GetData_raw_10000_108'
+                                    580 ;filtered                  Allocated with name '_ADC_GetData_filtered_10000_108'
+                                    581 ;channel                   Allocated to registers r7 
+                                    582 ;------------------------------------------------------------
+                                    583 ;	lib\N76E003\adc.c:45: __idata static uint16_t filtered[6] = {0};
+      000082 78 54            [12]  584 	mov	r0,#_ADC_GetData_filtered_10000_108
+      000084 76 00            [12]  585 	mov	@r0,#0x00
+      000086 08               [12]  586 	inc	r0
+      000087 76 00            [12]  587 	mov	@r0,#0x00
+      000089 78 56            [12]  588 	mov	r0,#(_ADC_GetData_filtered_10000_108 + 0x0002)
+      00008B 76 00            [12]  589 	mov	@r0,#0x00
+      00008D 08               [12]  590 	inc	r0
+      00008E 76 00            [12]  591 	mov	@r0,#0x00
+      000090 78 58            [12]  592 	mov	r0,#(_ADC_GetData_filtered_10000_108 + 0x0004)
+      000092 76 00            [12]  593 	mov	@r0,#0x00
+      000094 08               [12]  594 	inc	r0
+      000095 76 00            [12]  595 	mov	@r0,#0x00
+      000097 78 5A            [12]  596 	mov	r0,#(_ADC_GetData_filtered_10000_108 + 0x0006)
+      000099 76 00            [12]  597 	mov	@r0,#0x00
+      00009B 08               [12]  598 	inc	r0
+      00009C 76 00            [12]  599 	mov	@r0,#0x00
+      00009E 78 5C            [12]  600 	mov	r0,#(_ADC_GetData_filtered_10000_108 + 0x0008)
+      0000A0 76 00            [12]  601 	mov	@r0,#0x00
+      0000A2 08               [12]  602 	inc	r0
+      0000A3 76 00            [12]  603 	mov	@r0,#0x00
+      0000A5 78 5E            [12]  604 	mov	r0,#(_ADC_GetData_filtered_10000_108 + 0x000a)
+      0000A7 76 00            [12]  605 	mov	@r0,#0x00
+      0000A9 08               [12]  606 	inc	r0
+      0000AA 76 00            [12]  607 	mov	@r0,#0x00
+                                    608 ;	lib\N76E003\adc.c:46: static uint8_t initialized = 0;
+      0000AC 75 08 00         [24]  609 	mov	_ADC_GetData_initialized_10000_108,#0x00
+                                    610 ;--------------------------------------------------------
+                                    611 ; Home
+                                    612 ;--------------------------------------------------------
+                                    613 	.area HOME    (CODE)
+                                    614 	.area HOME    (CODE)
+                                    615 ;--------------------------------------------------------
+                                    616 ; code
+                                    617 ;--------------------------------------------------------
+                                    618 	.area CSEG    (CODE)
+                                    619 ;------------------------------------------------------------
+                                    620 ;Allocation info for local variables in function 'ADC_ConvertTime'
+                                    621 ;------------------------------------------------------------
+                                    622 ;u8ADCAQT                  Allocated with name '_ADC_ConvertTime_PARM_2'
+                                    623 ;u8ADCDIV                  Allocated to registers r7 
+                                    624 ;------------------------------------------------------------
+                                    625 ;	lib\N76E003\adc.c:13: void ADC_ConvertTime(uint8_t u8ADCDIV, uint8_t u8ADCAQT)
+                                    626 ;	-----------------------------------------
+                                    627 ;	 function ADC_ConvertTime
+                                    628 ;	-----------------------------------------
+      000370                        629 _ADC_ConvertTime:
+                           000007   630 	ar7 = 0x07
+                           000006   631 	ar6 = 0x06
+                           000005   632 	ar5 = 0x05
+                           000004   633 	ar4 = 0x04
+                           000003   634 	ar3 = 0x03
+                           000002   635 	ar2 = 0x02
+                           000001   636 	ar1 = 0x01
+                           000000   637 	ar0 = 0x00
+      000370 AF 82            [24]  638 	mov	r7, dpl
+                                    639 ;	lib\N76E003\adc.c:15: clr_ADCF;
+                                    640 ;	assignBit
+      000372 C2 EF            [12]  641 	clr	_ADCF
+                                    642 ;	lib\N76E003\adc.c:16: set_ADCS;
+                                    643 ;	assignBit
+      000374 D2 EE            [12]  644 	setb	_ADCS
+                                    645 ;	lib\N76E003\adc.c:18: SFRS = 0;
+      000376 75 91 00         [24]  646 	mov	_SFRS,#0x00
+                                    647 ;	lib\N76E003\adc.c:19: ADCCON1 &= 0x8F;
+      000379 53 E1 8F         [24]  648 	anl	_ADCCON1,#0x8f
+                                    649 ;	lib\N76E003\adc.c:20: ADCCON1 |= (u8ADCDIV & 0x07) << 4;
+      00037C 53 07 07         [24]  650 	anl	ar7,#0x07
+      00037F EF               [12]  651 	mov	a,r7
+      000380 C4               [12]  652 	swap	a
+      000381 54 F0            [12]  653 	anl	a,#0xf0
+      000383 42 E1            [12]  654 	orl	_ADCCON1,a
+                                    655 ;	lib\N76E003\adc.c:21: ADCCON2 &= 0xF1;
+      000385 53 E2 F1         [24]  656 	anl	_ADCCON2,#0xf1
+                                    657 ;	lib\N76E003\adc.c:22: ADCCON2 |= (u8ADCAQT & 0x07) << 1;
+      000388 E5 44            [12]  658 	mov	a,_ADC_ConvertTime_PARM_2
+      00038A 54 07            [12]  659 	anl	a,#0x07
+      00038C 25 E0            [12]  660 	add	a,acc
+      00038E 42 E2            [12]  661 	orl	_ADCCON2,a
+                                    662 ;	lib\N76E003\adc.c:23: }
+      000390 22               [24]  663 	ret
+                                    664 ;------------------------------------------------------------
+                                    665 ;Allocation info for local variables in function 'ADC_StartConv'
+                                    666 ;------------------------------------------------------------
+                                    667 ;	lib\N76E003\adc.c:25: void ADC_StartConv(void)
+                                    668 ;	-----------------------------------------
+                                    669 ;	 function ADC_StartConv
+                                    670 ;	-----------------------------------------
+      000391                        671 _ADC_StartConv:
+                                    672 ;	lib\N76E003\adc.c:27: ADCS = 1;
+                                    673 ;	assignBit
+      000391 D2 EE            [12]  674 	setb	_ADCS
+                                    675 ;	lib\N76E003\adc.c:28: }
+      000393 22               [24]  676 	ret
+                                    677 ;------------------------------------------------------------
+                                    678 ;Allocation info for local variables in function 'ADC_IsBusy'
+                                    679 ;------------------------------------------------------------
+                                    680 ;	lib\N76E003\adc.c:30: uint8_t ADC_IsBusy(void)
+                                    681 ;	-----------------------------------------
+                                    682 ;	 function ADC_IsBusy
+                                    683 ;	-----------------------------------------
+      000394                        684 _ADC_IsBusy:
+                                    685 ;	lib\N76E003\adc.c:32: return !ADCF;
+      000394 A2 EF            [12]  686 	mov	c,_ADCF
+      000396 B3               [12]  687 	cpl	c
+      000397 92 01            [24]  688 	mov  _ADC_IsBusy_sloc0_1_0,c
+      000399 E4               [12]  689 	clr	a
+      00039A 33               [12]  690 	rlc	a
+      00039B F5 82            [12]  691 	mov	dpl,a
+                                    692 ;	lib\N76E003\adc.c:33: }
+      00039D 22               [24]  693 	ret
+                                    694 ;------------------------------------------------------------
+                                    695 ;Allocation info for local variables in function 'ADC_GetData'
+                                    696 ;------------------------------------------------------------
+                                    697 ;initialized               Allocated with name '_ADC_GetData_initialized_10000_108'
+                                    698 ;raw                       Allocated with name '_ADC_GetData_raw_10000_108'
+                                    699 ;filtered                  Allocated with name '_ADC_GetData_filtered_10000_108'
+                                    700 ;channel                   Allocated to registers r7 
+                                    701 ;------------------------------------------------------------
+                                    702 ;	lib\N76E003\adc.c:42: uint16_t ADC_GetData(uint8_t channel)
+                                    703 ;	-----------------------------------------
+                                    704 ;	 function ADC_GetData
+                                    705 ;	-----------------------------------------
+      00039E                        706 _ADC_GetData:
+                                    707 ;	lib\N76E003\adc.c:48: raw[channel] = ((uint16_t)ADCRH << 4) | (ADCRL & 0x0F);
+      00039E E5 82            [12]  708 	mov	a,dpl
+      0003A0 FF               [12]  709 	mov	r7,a
+      0003A1 25 E0            [12]  710 	add	a,acc
+      0003A3 FE               [12]  711 	mov	r6,a
+      0003A4 24 48            [12]  712 	add	a, #_ADC_GetData_raw_10000_108
+      0003A6 F9               [12]  713 	mov	r1,a
+      0003A7 AC C3            [24]  714 	mov	r4,_ADCRH
+      0003A9 E4               [12]  715 	clr	a
+      0003AA C4               [12]  716 	swap	a
+      0003AB 54 F0            [12]  717 	anl	a,#0xf0
+      0003AD CC               [12]  718 	xch	a,r4
+      0003AE C4               [12]  719 	swap	a
+      0003AF CC               [12]  720 	xch	a,r4
+      0003B0 6C               [12]  721 	xrl	a,r4
+      0003B1 CC               [12]  722 	xch	a,r4
+      0003B2 54 F0            [12]  723 	anl	a,#0xf0
+      0003B4 CC               [12]  724 	xch	a,r4
+      0003B5 6C               [12]  725 	xrl	a,r4
+      0003B6 FD               [12]  726 	mov	r5,a
+      0003B7 AA C2            [24]  727 	mov	r2,_ADCRL
+      0003B9 53 02 0F         [24]  728 	anl	ar2,#0x0f
+      0003BC 7B 00            [12]  729 	mov	r3,#0x00
+      0003BE EC               [12]  730 	mov	a,r4
+      0003BF 42 02            [12]  731 	orl	ar2,a
+      0003C1 ED               [12]  732 	mov	a,r5
+      0003C2 42 03            [12]  733 	orl	ar3,a
+      0003C4 A7 02            [24]  734 	mov	@r1,ar2
+      0003C6 09               [12]  735 	inc	r1
+      0003C7 A7 03            [24]  736 	mov	@r1,ar3
+      0003C9 19               [12]  737 	dec	r1
+                                    738 ;	lib\N76E003\adc.c:50: if (!(initialized & (1 << channel)))
+      0003CA 8F F0            [24]  739 	mov	b,r7
+      0003CC 05 F0            [12]  740 	inc	b
+      0003CE 7C 01            [12]  741 	mov	r4,#0x01
+      0003D0 7D 00            [12]  742 	mov	r5,#0x00
+      0003D2 80 06            [24]  743 	sjmp	00113$
+      0003D4                        744 00112$:
+      0003D4 EC               [12]  745 	mov	a,r4
+      0003D5 2C               [12]  746 	add	a,r4
+      0003D6 FC               [12]  747 	mov	r4,a
+      0003D7 ED               [12]  748 	mov	a,r5
+      0003D8 33               [12]  749 	rlc	a
+      0003D9 FD               [12]  750 	mov	r5,a
+      0003DA                        751 00113$:
+      0003DA D5 F0 F7         [24]  752 	djnz	b,00112$
+      0003DD AA 08            [24]  753 	mov	r2,_ADC_GetData_initialized_10000_108
+      0003DF 7B 00            [12]  754 	mov	r3,#0x00
+      0003E1 EA               [12]  755 	mov	a,r2
+      0003E2 52 04            [12]  756 	anl	ar4,a
+      0003E4 EB               [12]  757 	mov	a,r3
+      0003E5 52 05            [12]  758 	anl	ar5,a
+      0003E7 EC               [12]  759 	mov	a,r4
+      0003E8 4D               [12]  760 	orl	a,r5
+      0003E9 70 20            [24]  761 	jnz	00102$
+                                    762 ;	lib\N76E003\adc.c:52: filtered[channel] = raw[channel];
+      0003EB EE               [12]  763 	mov	a,r6
+      0003EC 24 54            [12]  764 	add	a, #_ADC_GetData_filtered_10000_108
+      0003EE F8               [12]  765 	mov	r0,a
+      0003EF 87 04            [24]  766 	mov	ar4,@r1
+      0003F1 09               [12]  767 	inc	r1
+      0003F2 87 05            [24]  768 	mov	ar5,@r1
+      0003F4 19               [12]  769 	dec	r1
+      0003F5 A6 04            [24]  770 	mov	@r0,ar4
+      0003F7 08               [12]  771 	inc	r0
+      0003F8 A6 05            [24]  772 	mov	@r0,ar5
+                                    773 ;	lib\N76E003\adc.c:53: initialized |= (1 << channel); // Đánh dấu đã khởi tạo
+      0003FA 8F F0            [24]  774 	mov	b,r7
+      0003FC 05 F0            [12]  775 	inc	b
+      0003FE 74 01            [12]  776 	mov	a,#0x01
+      000400 80 02            [24]  777 	sjmp	00116$
+      000402                        778 00115$:
+      000402 25 E0            [12]  779 	add	a,acc
+      000404                        780 00116$:
+      000404 D5 F0 FB         [24]  781 	djnz	b,00115$
+      000407 42 08            [12]  782 	orl	_ADC_GetData_initialized_10000_108,a
+      000409 80 41            [24]  783 	sjmp	00103$
+      00040B                        784 00102$:
+                                    785 ;	lib\N76E003\adc.c:57: filtered[channel] = ((filtered[channel] << 3) - filtered[channel] + raw[channel]) >> 3;
+      00040B EE               [12]  786 	mov	a,r6
+      00040C 24 54            [12]  787 	add	a, #_ADC_GetData_filtered_10000_108
+      00040E F8               [12]  788 	mov	r0,a
+      00040F 86 05            [24]  789 	mov	ar5,@r0
+      000411 08               [12]  790 	inc	r0
+      000412 86 07            [24]  791 	mov	ar7,@r0
+      000414 18               [12]  792 	dec	r0
+      000415 8D 03            [24]  793 	mov	ar3,r5
+      000417 EF               [12]  794 	mov	a,r7
+      000418 C4               [12]  795 	swap	a
+      000419 03               [12]  796 	rr	a
+      00041A 54 F8            [12]  797 	anl	a,#0xf8
+      00041C CB               [12]  798 	xch	a,r3
+      00041D C4               [12]  799 	swap	a
+      00041E 03               [12]  800 	rr	a
+      00041F CB               [12]  801 	xch	a,r3
+      000420 6B               [12]  802 	xrl	a,r3
+      000421 CB               [12]  803 	xch	a,r3
+      000422 54 F8            [12]  804 	anl	a,#0xf8
+      000424 CB               [12]  805 	xch	a,r3
+      000425 6B               [12]  806 	xrl	a,r3
+      000426 FC               [12]  807 	mov	r4,a
+      000427 EB               [12]  808 	mov	a,r3
+      000428 C3               [12]  809 	clr	c
+      000429 9D               [12]  810 	subb	a,r5
+      00042A FD               [12]  811 	mov	r5,a
+      00042B EC               [12]  812 	mov	a,r4
+      00042C 9F               [12]  813 	subb	a,r7
+      00042D FF               [12]  814 	mov	r7,a
+      00042E 87 03            [24]  815 	mov	ar3,@r1
+      000430 09               [12]  816 	inc	r1
+      000431 87 04            [24]  817 	mov	ar4,@r1
+      000433 EB               [12]  818 	mov	a,r3
+      000434 2D               [12]  819 	add	a, r5
+      000435 FD               [12]  820 	mov	r5,a
+      000436 EC               [12]  821 	mov	a,r4
+      000437 3F               [12]  822 	addc	a, r7
+      000438 C4               [12]  823 	swap	a
+      000439 23               [12]  824 	rl	a
+      00043A CD               [12]  825 	xch	a,r5
+      00043B C4               [12]  826 	swap	a
+      00043C 23               [12]  827 	rl	a
+      00043D 54 1F            [12]  828 	anl	a,#0x1f
+      00043F 6D               [12]  829 	xrl	a,r5
+      000440 CD               [12]  830 	xch	a,r5
+      000441 54 1F            [12]  831 	anl	a,#0x1f
+      000443 CD               [12]  832 	xch	a,r5
+      000444 6D               [12]  833 	xrl	a,r5
+      000445 CD               [12]  834 	xch	a,r5
+      000446 FF               [12]  835 	mov	r7,a
+      000447 A6 05            [24]  836 	mov	@r0,ar5
+      000449 08               [12]  837 	inc	r0
+      00044A A6 07            [24]  838 	mov	@r0,ar7
+      00044C                        839 00103$:
+                                    840 ;	lib\N76E003\adc.c:60: return filtered[channel];
+      00044C EE               [12]  841 	mov	a,r6
+      00044D 24 54            [12]  842 	add	a, #_ADC_GetData_filtered_10000_108
+      00044F F9               [12]  843 	mov	r1,a
+      000450 87 82            [24]  844 	mov	dpl,@r1
+      000452 09               [12]  845 	inc	r1
+      000453 87 83            [24]  846 	mov	dph,@r1
+                                    847 ;	lib\N76E003\adc.c:61: }
+      000455 22               [24]  848 	ret
+                                    849 ;------------------------------------------------------------
+                                    850 ;Allocation info for local variables in function 'ADC_ClearFlag'
+                                    851 ;------------------------------------------------------------
+                                    852 ;	lib\N76E003\adc.c:63: void ADC_ClearFlag(void)
+                                    853 ;	-----------------------------------------
+                                    854 ;	 function ADC_ClearFlag
+                                    855 ;	-----------------------------------------
+      000456                        856 _ADC_ClearFlag:
+                                    857 ;	lib\N76E003\adc.c:65: ADCF = 0;
+                                    858 ;	assignBit
+      000456 C2 EF            [12]  859 	clr	_ADCF
+                                    860 ;	lib\N76E003\adc.c:66: }
+      000458 22               [24]  861 	ret
+                                    862 ;------------------------------------------------------------
+                                    863 ;Allocation info for local variables in function 'ADC_Disable'
+                                    864 ;------------------------------------------------------------
+                                    865 ;	lib\N76E003\adc.c:68: void ADC_Disable(void)
+                                    866 ;	-----------------------------------------
+                                    867 ;	 function ADC_Disable
+                                    868 ;	-----------------------------------------
+      000459                        869 _ADC_Disable:
+                                    870 ;	lib\N76E003\adc.c:70: ADCCON1 &= 0xFE;
+      000459 53 E1 FE         [24]  871 	anl	_ADCCON1,#0xfe
+                                    872 ;	lib\N76E003\adc.c:71: }
+      00045C 22               [24]  873 	ret
+                                    874 ;------------------------------------------------------------
+                                    875 ;Allocation info for local variables in function 'ADC_ComapreMode'
+                                    876 ;------------------------------------------------------------
+                                    877 ;u16ADCCMPVALUE            Allocated with name '_ADC_ComapreMode_PARM_2'
+                                    878 ;u8ADCCMPEN                Allocated to registers r7 
+                                    879 ;------------------------------------------------------------
+                                    880 ;	lib\N76E003\adc.c:73: void ADC_ComapreMode(uint8_t u8ADCCMPEN, uint16_t u16ADCCMPVALUE)
+                                    881 ;	-----------------------------------------
+                                    882 ;	 function ADC_ComapreMode
+                                    883 ;	-----------------------------------------
+      00045D                        884 _ADC_ComapreMode:
+      00045D AF 82            [24]  885 	mov	r7, dpl
+                                    886 ;	lib\N76E003\adc.c:75: SFRS = 0;
+      00045F 75 91 00         [24]  887 	mov	_SFRS,#0x00
+                                    888 ;	lib\N76E003\adc.c:76: ADCMPL = u16ADCCMPVALUE & 0x000F;
+      000462 AE 44            [24]  889 	mov	r6,_ADC_ComapreMode_PARM_2
+      000464 74 0F            [12]  890 	mov	a,#0x0f
+      000466 5E               [12]  891 	anl	a,r6
+      000467 F5 CE            [12]  892 	mov	_ADCMPL,a
+                                    893 ;	lib\N76E003\adc.c:77: ADCMPH = u16ADCCMPVALUE >> 4;
+      000469 AD 44            [24]  894 	mov	r5,_ADC_ComapreMode_PARM_2
+      00046B E5 45            [12]  895 	mov	a,(_ADC_ComapreMode_PARM_2 + 1)
+      00046D C4               [12]  896 	swap	a
+      00046E CD               [12]  897 	xch	a,r5
+      00046F C4               [12]  898 	swap	a
+      000470 54 0F            [12]  899 	anl	a,#0x0f
+      000472 6D               [12]  900 	xrl	a,r5
+      000473 CD               [12]  901 	xch	a,r5
+      000474 54 0F            [12]  902 	anl	a,#0x0f
+      000476 CD               [12]  903 	xch	a,r5
+      000477 6D               [12]  904 	xrl	a,r5
+      000478 CD               [12]  905 	xch	a,r5
+      000479 8D CF            [24]  906 	mov	_ADCMPH,r5
+                                    907 ;	lib\N76E003\adc.c:78: if (u8ADCCMPEN)
+      00047B EF               [12]  908 	mov	a,r7
+      00047C 60 04            [24]  909 	jz	00102$
+                                    910 ;	lib\N76E003\adc.c:80: set_ADCMPEN;
+      00047E 43 E2 20         [24]  911 	orl	_ADCCON2,#0x20
+      000481 22               [24]  912 	ret
+      000482                        913 00102$:
+                                    914 ;	lib\N76E003\adc.c:84: clr_ADCMPEN;
+      000482 53 E2 DF         [24]  915 	anl	_ADCCON2,#0xdf
+                                    916 ;	lib\N76E003\adc.c:86: }
+      000485 22               [24]  917 	ret
+                                    918 ;------------------------------------------------------------
+                                    919 ;Allocation info for local variables in function 'ADC_Init'
+                                    920 ;------------------------------------------------------------
+                                    921 ;div                       Allocated with name '_ADC_Init_PARM_2'
+                                    922 ;channel                   Allocated to registers r7 
+                                    923 ;------------------------------------------------------------
+                                    924 ;	lib\N76E003\adc.c:88: void ADC_Init(uint8_t channel, uint8_t div)
+                                    925 ;	-----------------------------------------
+                                    926 ;	 function ADC_Init
+                                    927 ;	-----------------------------------------
+      000486                        928 _ADC_Init:
+                                    929 ;	lib\N76E003\adc.c:90: switch (channel)
+      000486 E5 82            [12]  930 	mov	a,dpl
+      000488 FF               [12]  931 	mov	r7,a
+      000489 24 F7            [12]  932 	add	a,#0xff - 0x08
+      00048B 50 01            [24]  933 	jnc	00170$
+      00048D 22               [24]  934 	ret
+      00048E                        935 00170$:
+      00048E EF               [12]  936 	mov	a,r7
+      00048F 24 0A            [12]  937 	add	a,#(00171$-3-.)
+      000491 83               [24]  938 	movc	a,@a+pc
+      000492 F5 82            [12]  939 	mov	dpl,a
+      000494 EF               [12]  940 	mov	a,r7
+      000495 24 0D            [12]  941 	add	a,#(00172$-3-.)
+      000497 83               [24]  942 	movc	a,@a+pc
+      000498 F5 83            [12]  943 	mov	dph,a
+      00049A E4               [12]  944 	clr	a
+      00049B 73               [24]  945 	jmp	@a+dptr
+      00049C                        946 00171$:
+      00049C AE                     947 	.db	00105$
+      00049D CE                     948 	.db	00112$
+      00049E F1                     949 	.db	00119$
+      00049F 14                     950 	.db	00126$
+      0004A0 37                     951 	.db	00133$
+      0004A1 5A                     952 	.db	00140$
+      0004A2 7D                     953 	.db	00147$
+      0004A3 A0                     954 	.db	00154$
+      0004A4 C3                     955 	.db	00158$
+      0004A5                        956 00172$:
+      0004A5 04                     957 	.db	00105$>>8
+      0004A6 04                     958 	.db	00112$>>8
+      0004A7 04                     959 	.db	00119$>>8
+      0004A8 05                     960 	.db	00126$>>8
+      0004A9 05                     961 	.db	00133$>>8
+      0004AA 05                     962 	.db	00140$>>8
+      0004AB 05                     963 	.db	00147$>>8
+      0004AC 05                     964 	.db	00154$>>8
+      0004AD 05                     965 	.db	00158$>>8
+                                    966 ;	lib\N76E003\adc.c:93: Enable_ADC_AIN0;
+      0004AE                        967 00105$:
+      0004AE 53 E8 F0         [24]  968 	anl	_ADCCON0,#0xf0
+      0004B1 43 B3 80         [24]  969 	orl	_P1M1,#0x80
+      0004B4 53 B4 7F         [24]  970 	anl	_P1M2,#0x7f
+      0004B7 75 F6 00         [24]  971 	mov	_AINDIDS,#0x00
+      0004BA 43 F6 01         [24]  972 	orl	_AINDIDS,#0x01
+      0004BD 43 E1 01         [24]  973 	orl	_ADCCON1,#0x01
+                                    974 ;	lib\N76E003\adc.c:94: ADC_ConvertTime(div, ADC_ADCAQT0);
+      0004C0 75 44 00         [24]  975 	mov	_ADC_ConvertTime_PARM_2,#0x00
+      0004C3 85 09 82         [24]  976 	mov	dpl, _ADC_Init_PARM_2
+      0004C6 12 03 70         [24]  977 	lcall	_ADC_ConvertTime
+                                    978 ;	lib\N76E003\adc.c:95: clr_ADCF;
+                                    979 ;	assignBit
+      0004C9 C2 EF            [12]  980 	clr	_ADCF
+                                    981 ;	lib\N76E003\adc.c:96: set_ADCS;
+                                    982 ;	assignBit
+      0004CB D2 EE            [12]  983 	setb	_ADCS
+                                    984 ;	lib\N76E003\adc.c:97: break;
+      0004CD 22               [24]  985 	ret
+                                    986 ;	lib\N76E003\adc.c:99: Enable_ADC_AIN1;
+      0004CE                        987 00112$:
+      0004CE 53 E8 F0         [24]  988 	anl	_ADCCON0,#0xf0
+      0004D1 43 E8 01         [24]  989 	orl	_ADCCON0,#0x01
+      0004D4 43 AC 01         [24]  990 	orl	_P3M1,#0x01
+      0004D7 53 AD FE         [24]  991 	anl	_P3M2,#0xfe
+      0004DA 75 F6 00         [24]  992 	mov	_AINDIDS,#0x00
+      0004DD 43 F6 02         [24]  993 	orl	_AINDIDS,#0x02
+      0004E0 43 E1 01         [24]  994 	orl	_ADCCON1,#0x01
+                                    995 ;	lib\N76E003\adc.c:100: ADC_ConvertTime(div, ADC_ADCAQT1);
+      0004E3 75 44 01         [24]  996 	mov	_ADC_ConvertTime_PARM_2,#0x01
+      0004E6 85 09 82         [24]  997 	mov	dpl, _ADC_Init_PARM_2
+      0004E9 12 03 70         [24]  998 	lcall	_ADC_ConvertTime
+                                    999 ;	lib\N76E003\adc.c:101: clr_ADCF;
+                                   1000 ;	assignBit
+      0004EC C2 EF            [12] 1001 	clr	_ADCF
+                                   1002 ;	lib\N76E003\adc.c:102: set_ADCS;
+                                   1003 ;	assignBit
+      0004EE D2 EE            [12] 1004 	setb	_ADCS
+                                   1005 ;	lib\N76E003\adc.c:103: break;
+      0004F0 22               [24] 1006 	ret
+                                   1007 ;	lib\N76E003\adc.c:105: Enable_ADC_AIN2;
+      0004F1                       1008 00119$:
+      0004F1 53 E8 F0         [24] 1009 	anl	_ADCCON0,#0xf0
+      0004F4 43 E8 02         [24] 1010 	orl	_ADCCON0,#0x02
+      0004F7 43 B1 80         [24] 1011 	orl	_P0M1,#0x80
+      0004FA 53 B2 7F         [24] 1012 	anl	_P0M2,#0x7f
+      0004FD 75 F6 00         [24] 1013 	mov	_AINDIDS,#0x00
+      000500 43 F6 04         [24] 1014 	orl	_AINDIDS,#0x04
+      000503 43 E1 01         [24] 1015 	orl	_ADCCON1,#0x01
+                                   1016 ;	lib\N76E003\adc.c:106: ADC_ConvertTime(div, ADC_ADCAQT2);
+      000506 75 44 02         [24] 1017 	mov	_ADC_ConvertTime_PARM_2,#0x02
+      000509 85 09 82         [24] 1018 	mov	dpl, _ADC_Init_PARM_2
+      00050C 12 03 70         [24] 1019 	lcall	_ADC_ConvertTime
+                                   1020 ;	lib\N76E003\adc.c:107: clr_ADCF;
+                                   1021 ;	assignBit
+      00050F C2 EF            [12] 1022 	clr	_ADCF
+                                   1023 ;	lib\N76E003\adc.c:108: set_ADCS;
+                                   1024 ;	assignBit
+      000511 D2 EE            [12] 1025 	setb	_ADCS
+                                   1026 ;	lib\N76E003\adc.c:109: break;
+      000513 22               [24] 1027 	ret
+                                   1028 ;	lib\N76E003\adc.c:111: Enable_ADC_AIN3;
+      000514                       1029 00126$:
+      000514 53 E8 F0         [24] 1030 	anl	_ADCCON0,#0xf0
+      000517 43 E8 03         [24] 1031 	orl	_ADCCON0,#0x03
+      00051A 43 B1 40         [24] 1032 	orl	_P0M1,#0x40
+      00051D 53 B2 BF         [24] 1033 	anl	_P0M2,#0xbf
+      000520 75 F6 00         [24] 1034 	mov	_AINDIDS,#0x00
+      000523 43 F6 08         [24] 1035 	orl	_AINDIDS,#0x08
+      000526 43 E1 01         [24] 1036 	orl	_ADCCON1,#0x01
+                                   1037 ;	lib\N76E003\adc.c:112: ADC_ConvertTime(div, ADC_ADCAQT3);
+      000529 75 44 03         [24] 1038 	mov	_ADC_ConvertTime_PARM_2,#0x03
+      00052C 85 09 82         [24] 1039 	mov	dpl, _ADC_Init_PARM_2
+      00052F 12 03 70         [24] 1040 	lcall	_ADC_ConvertTime
+                                   1041 ;	lib\N76E003\adc.c:113: clr_ADCF;
+                                   1042 ;	assignBit
+      000532 C2 EF            [12] 1043 	clr	_ADCF
+                                   1044 ;	lib\N76E003\adc.c:114: set_ADCS;
+                                   1045 ;	assignBit
+      000534 D2 EE            [12] 1046 	setb	_ADCS
+                                   1047 ;	lib\N76E003\adc.c:115: break;
+      000536 22               [24] 1048 	ret
+                                   1049 ;	lib\N76E003\adc.c:117: Enable_ADC_AIN4;
+      000537                       1050 00133$:
+      000537 53 E8 F0         [24] 1051 	anl	_ADCCON0,#0xf0
+      00053A 43 E8 04         [24] 1052 	orl	_ADCCON0,#0x04
+      00053D 43 B1 20         [24] 1053 	orl	_P0M1,#0x20
+      000540 53 B2 DF         [24] 1054 	anl	_P0M2,#0xdf
+      000543 75 F6 00         [24] 1055 	mov	_AINDIDS,#0x00
+      000546 43 F6 10         [24] 1056 	orl	_AINDIDS,#0x10
+      000549 43 E1 01         [24] 1057 	orl	_ADCCON1,#0x01
+                                   1058 ;	lib\N76E003\adc.c:118: ADC_ConvertTime(div, ADC_ADCAQT4);
+      00054C 75 44 04         [24] 1059 	mov	_ADC_ConvertTime_PARM_2,#0x04
+      00054F 85 09 82         [24] 1060 	mov	dpl, _ADC_Init_PARM_2
+      000552 12 03 70         [24] 1061 	lcall	_ADC_ConvertTime
+                                   1062 ;	lib\N76E003\adc.c:119: clr_ADCF;
+                                   1063 ;	assignBit
+      000555 C2 EF            [12] 1064 	clr	_ADCF
+                                   1065 ;	lib\N76E003\adc.c:120: set_ADCS;
+                                   1066 ;	assignBit
+      000557 D2 EE            [12] 1067 	setb	_ADCS
+                                   1068 ;	lib\N76E003\adc.c:121: break;
+      000559 22               [24] 1069 	ret
+                                   1070 ;	lib\N76E003\adc.c:123: Enable_ADC_AIN5;
+      00055A                       1071 00140$:
+      00055A 53 E8 F0         [24] 1072 	anl	_ADCCON0,#0xf0
+      00055D 43 E8 05         [24] 1073 	orl	_ADCCON0,#0x05
+      000560 43 B1 10         [24] 1074 	orl	_P0M1,#0x10
+      000563 53 B2 EF         [24] 1075 	anl	_P0M2,#0xef
+      000566 75 F6 00         [24] 1076 	mov	_AINDIDS,#0x00
+      000569 43 F6 20         [24] 1077 	orl	_AINDIDS,#0x20
+      00056C 43 E1 01         [24] 1078 	orl	_ADCCON1,#0x01
+                                   1079 ;	lib\N76E003\adc.c:124: ADC_ConvertTime(div, ADC_ADCAQT5);
+      00056F 75 44 05         [24] 1080 	mov	_ADC_ConvertTime_PARM_2,#0x05
+      000572 85 09 82         [24] 1081 	mov	dpl, _ADC_Init_PARM_2
+      000575 12 03 70         [24] 1082 	lcall	_ADC_ConvertTime
+                                   1083 ;	lib\N76E003\adc.c:125: clr_ADCF;
+                                   1084 ;	assignBit
+      000578 C2 EF            [12] 1085 	clr	_ADCF
+                                   1086 ;	lib\N76E003\adc.c:126: set_ADCS;
+                                   1087 ;	assignBit
+      00057A D2 EE            [12] 1088 	setb	_ADCS
+                                   1089 ;	lib\N76E003\adc.c:127: break;
+                                   1090 ;	lib\N76E003\adc.c:129: Enable_ADC_AIN6;
+      00057C 22               [24] 1091 	ret
+      00057D                       1092 00147$:
+      00057D 53 E8 F0         [24] 1093 	anl	_ADCCON0,#0xf0
+      000580 43 E8 06         [24] 1094 	orl	_ADCCON0,#0x06
+      000583 43 B1 08         [24] 1095 	orl	_P0M1,#0x08
+      000586 53 B2 F7         [24] 1096 	anl	_P0M2,#0xf7
+      000589 75 F6 00         [24] 1097 	mov	_AINDIDS,#0x00
+      00058C 43 F6 40         [24] 1098 	orl	_AINDIDS,#0x40
+      00058F 43 E1 01         [24] 1099 	orl	_ADCCON1,#0x01
+                                   1100 ;	lib\N76E003\adc.c:130: ADC_ConvertTime(div, ADC_ADCAQT6);
+      000592 75 44 06         [24] 1101 	mov	_ADC_ConvertTime_PARM_2,#0x06
+      000595 85 09 82         [24] 1102 	mov	dpl, _ADC_Init_PARM_2
+      000598 12 03 70         [24] 1103 	lcall	_ADC_ConvertTime
+                                   1104 ;	lib\N76E003\adc.c:131: clr_ADCF;
+                                   1105 ;	assignBit
+      00059B C2 EF            [12] 1106 	clr	_ADCF
+                                   1107 ;	lib\N76E003\adc.c:132: set_ADCS;
+                                   1108 ;	assignBit
+      00059D D2 EE            [12] 1109 	setb	_ADCS
+                                   1110 ;	lib\N76E003\adc.c:133: break;
+                                   1111 ;	lib\N76E003\adc.c:135: Enable_ADC_AIN7;
+      00059F 22               [24] 1112 	ret
+      0005A0                       1113 00154$:
+      0005A0 53 E8 F0         [24] 1114 	anl	_ADCCON0,#0xf0
+      0005A3 43 E8 07         [24] 1115 	orl	_ADCCON0,#0x07
+      0005A6 43 B3 02         [24] 1116 	orl	_P1M1,#0x02
+      0005A9 53 B4 FD         [24] 1117 	anl	_P1M2,#0xfd
+      0005AC 75 F6 00         [24] 1118 	mov	_AINDIDS,#0x00
+      0005AF 43 F6 80         [24] 1119 	orl	_AINDIDS,#0x80
+      0005B2 43 E1 01         [24] 1120 	orl	_ADCCON1,#0x01
+                                   1121 ;	lib\N76E003\adc.c:136: ADC_ConvertTime(div, ADC_ADCAQT7);
+      0005B5 75 44 07         [24] 1122 	mov	_ADC_ConvertTime_PARM_2,#0x07
+      0005B8 85 09 82         [24] 1123 	mov	dpl, _ADC_Init_PARM_2
+      0005BB 12 03 70         [24] 1124 	lcall	_ADC_ConvertTime
+                                   1125 ;	lib\N76E003\adc.c:137: clr_ADCF;
+                                   1126 ;	assignBit
+      0005BE C2 EF            [12] 1127 	clr	_ADCF
+                                   1128 ;	lib\N76E003\adc.c:138: set_ADCS;
+                                   1129 ;	assignBit
+      0005C0 D2 EE            [12] 1130 	setb	_ADCS
+                                   1131 ;	lib\N76E003\adc.c:139: break;
+                                   1132 ;	lib\N76E003\adc.c:141: Enable_ADC_BandGap;
+      0005C2 22               [24] 1133 	ret
+      0005C3                       1134 00158$:
+      0005C3 53 E1 FE         [24] 1135 	anl	_ADCCON1,#0xfe
+      0005C6 53 E8 F0         [24] 1136 	anl	_ADCCON0,#0xf0
+      0005C9 43 E8 08         [24] 1137 	orl	_ADCCON0,#0x08
+      0005CC 53 E8 F8         [24] 1138 	anl	_ADCCON0,#0xf8
+      0005CF 43 E1 01         [24] 1139 	orl	_ADCCON1,#0x01
+                                   1140 ;	lib\N76E003\adc.c:142: clr_ADCF;
+                                   1141 ;	assignBit
+      0005D2 C2 EF            [12] 1142 	clr	_ADCF
+                                   1143 ;	lib\N76E003\adc.c:143: set_ADCS;
+                                   1144 ;	assignBit
+      0005D4 D2 EE            [12] 1145 	setb	_ADCS
+                                   1146 ;	lib\N76E003\adc.c:145: }
+                                   1147 ;	lib\N76E003\adc.c:146: }
+      0005D6 22               [24] 1148 	ret
+                                   1149 ;------------------------------------------------------------
+                                   1150 ;Allocation info for local variables in function 'ADC_SelectChannel'
+                                   1151 ;------------------------------------------------------------
+                                   1152 ;channel                   Allocated to registers r7 
+                                   1153 ;------------------------------------------------------------
+                                   1154 ;	lib\N76E003\adc.c:148: void ADC_SelectChannel(uint8_t channel)
+                                   1155 ;	-----------------------------------------
+                                   1156 ;	 function ADC_SelectChannel
+                                   1157 ;	-----------------------------------------
+      0005D7                       1158 _ADC_SelectChannel:
+                                   1159 ;	lib\N76E003\adc.c:150: switch (channel)
+      0005D7 E5 82            [12] 1160 	mov	a,dpl
+      0005D9 FF               [12] 1161 	mov	r7,a
+      0005DA 24 F7            [12] 1162 	add	a,#0xff - 0x08
+      0005DC 50 01            [24] 1163 	jnc	00170$
+      0005DE 22               [24] 1164 	ret
+      0005DF                       1165 00170$:
+      0005DF EF               [12] 1166 	mov	a,r7
+      0005E0 24 0A            [12] 1167 	add	a,#(00171$-3-.)
+      0005E2 83               [24] 1168 	movc	a,@a+pc
+      0005E3 F5 82            [12] 1169 	mov	dpl,a
+      0005E5 EF               [12] 1170 	mov	a,r7
+      0005E6 24 0D            [12] 1171 	add	a,#(00172$-3-.)
+      0005E8 83               [24] 1172 	movc	a,@a+pc
+      0005E9 F5 83            [12] 1173 	mov	dph,a
+      0005EB E4               [12] 1174 	clr	a
+      0005EC 73               [24] 1175 	jmp	@a+dptr
+      0005ED                       1176 00171$:
+      0005ED FF                    1177 	.db	00105$
+      0005EE 12                    1178 	.db	00112$
+      0005EF 28                    1179 	.db	00119$
+      0005F0 3E                    1180 	.db	00126$
+      0005F1 54                    1181 	.db	00133$
+      0005F2 6A                    1182 	.db	00140$
+      0005F3 80                    1183 	.db	00147$
+      0005F4 96                    1184 	.db	00154$
+      0005F5 AC                    1185 	.db	00158$
+      0005F6                       1186 00172$:
+      0005F6 05                    1187 	.db	00105$>>8
+      0005F7 06                    1188 	.db	00112$>>8
+      0005F8 06                    1189 	.db	00119$>>8
+      0005F9 06                    1190 	.db	00126$>>8
+      0005FA 06                    1191 	.db	00133$>>8
+      0005FB 06                    1192 	.db	00140$>>8
+      0005FC 06                    1193 	.db	00147$>>8
+      0005FD 06                    1194 	.db	00154$>>8
+      0005FE 06                    1195 	.db	00158$>>8
+                                   1196 ;	lib\N76E003\adc.c:153: Enable_ADC_AIN0;
+      0005FF                       1197 00105$:
+      0005FF 53 E8 F0         [24] 1198 	anl	_ADCCON0,#0xf0
+      000602 43 B3 80         [24] 1199 	orl	_P1M1,#0x80
+      000605 53 B4 7F         [24] 1200 	anl	_P1M2,#0x7f
+      000608 75 F6 00         [24] 1201 	mov	_AINDIDS,#0x00
+      00060B 43 F6 01         [24] 1202 	orl	_AINDIDS,#0x01
+      00060E 43 E1 01         [24] 1203 	orl	_ADCCON1,#0x01
+                                   1204 ;	lib\N76E003\adc.c:154: break;
+      000611 22               [24] 1205 	ret
+                                   1206 ;	lib\N76E003\adc.c:156: Enable_ADC_AIN1;
+      000612                       1207 00112$:
+      000612 53 E8 F0         [24] 1208 	anl	_ADCCON0,#0xf0
+      000615 43 E8 01         [24] 1209 	orl	_ADCCON0,#0x01
+      000618 43 AC 01         [24] 1210 	orl	_P3M1,#0x01
+      00061B 53 AD FE         [24] 1211 	anl	_P3M2,#0xfe
+      00061E 75 F6 00         [24] 1212 	mov	_AINDIDS,#0x00
+      000621 43 F6 02         [24] 1213 	orl	_AINDIDS,#0x02
+      000624 43 E1 01         [24] 1214 	orl	_ADCCON1,#0x01
+                                   1215 ;	lib\N76E003\adc.c:157: break;
+      000627 22               [24] 1216 	ret
+                                   1217 ;	lib\N76E003\adc.c:159: Enable_ADC_AIN2;
+      000628                       1218 00119$:
+      000628 53 E8 F0         [24] 1219 	anl	_ADCCON0,#0xf0
+      00062B 43 E8 02         [24] 1220 	orl	_ADCCON0,#0x02
+      00062E 43 B1 80         [24] 1221 	orl	_P0M1,#0x80
+      000631 53 B2 7F         [24] 1222 	anl	_P0M2,#0x7f
+      000634 75 F6 00         [24] 1223 	mov	_AINDIDS,#0x00
+      000637 43 F6 04         [24] 1224 	orl	_AINDIDS,#0x04
+      00063A 43 E1 01         [24] 1225 	orl	_ADCCON1,#0x01
+                                   1226 ;	lib\N76E003\adc.c:160: break;
+      00063D 22               [24] 1227 	ret
+                                   1228 ;	lib\N76E003\adc.c:162: Enable_ADC_AIN3;
+      00063E                       1229 00126$:
+      00063E 53 E8 F0         [24] 1230 	anl	_ADCCON0,#0xf0
+      000641 43 E8 03         [24] 1231 	orl	_ADCCON0,#0x03
+      000644 43 B1 40         [24] 1232 	orl	_P0M1,#0x40
+      000647 53 B2 BF         [24] 1233 	anl	_P0M2,#0xbf
+      00064A 75 F6 00         [24] 1234 	mov	_AINDIDS,#0x00
+      00064D 43 F6 08         [24] 1235 	orl	_AINDIDS,#0x08
+      000650 43 E1 01         [24] 1236 	orl	_ADCCON1,#0x01
+                                   1237 ;	lib\N76E003\adc.c:163: break;
+                                   1238 ;	lib\N76E003\adc.c:165: Enable_ADC_AIN4;
+      000653 22               [24] 1239 	ret
+      000654                       1240 00133$:
+      000654 53 E8 F0         [24] 1241 	anl	_ADCCON0,#0xf0
+      000657 43 E8 04         [24] 1242 	orl	_ADCCON0,#0x04
+      00065A 43 B1 20         [24] 1243 	orl	_P0M1,#0x20
+      00065D 53 B2 DF         [24] 1244 	anl	_P0M2,#0xdf
+      000660 75 F6 00         [24] 1245 	mov	_AINDIDS,#0x00
+      000663 43 F6 10         [24] 1246 	orl	_AINDIDS,#0x10
+      000666 43 E1 01         [24] 1247 	orl	_ADCCON1,#0x01
+                                   1248 ;	lib\N76E003\adc.c:166: break;
+                                   1249 ;	lib\N76E003\adc.c:168: Enable_ADC_AIN5;
+      000669 22               [24] 1250 	ret
+      00066A                       1251 00140$:
+      00066A 53 E8 F0         [24] 1252 	anl	_ADCCON0,#0xf0
+      00066D 43 E8 05         [24] 1253 	orl	_ADCCON0,#0x05
+      000670 43 B1 10         [24] 1254 	orl	_P0M1,#0x10
+      000673 53 B2 EF         [24] 1255 	anl	_P0M2,#0xef
+      000676 75 F6 00         [24] 1256 	mov	_AINDIDS,#0x00
+      000679 43 F6 20         [24] 1257 	orl	_AINDIDS,#0x20
+      00067C 43 E1 01         [24] 1258 	orl	_ADCCON1,#0x01
+                                   1259 ;	lib\N76E003\adc.c:169: break;
+                                   1260 ;	lib\N76E003\adc.c:171: Enable_ADC_AIN6;
+      00067F 22               [24] 1261 	ret
+      000680                       1262 00147$:
+      000680 53 E8 F0         [24] 1263 	anl	_ADCCON0,#0xf0
+      000683 43 E8 06         [24] 1264 	orl	_ADCCON0,#0x06
+      000686 43 B1 08         [24] 1265 	orl	_P0M1,#0x08
+      000689 53 B2 F7         [24] 1266 	anl	_P0M2,#0xf7
+      00068C 75 F6 00         [24] 1267 	mov	_AINDIDS,#0x00
+      00068F 43 F6 40         [24] 1268 	orl	_AINDIDS,#0x40
+      000692 43 E1 01         [24] 1269 	orl	_ADCCON1,#0x01
+                                   1270 ;	lib\N76E003\adc.c:172: break;
+                                   1271 ;	lib\N76E003\adc.c:174: Enable_ADC_AIN7;
+      000695 22               [24] 1272 	ret
+      000696                       1273 00154$:
+      000696 53 E8 F0         [24] 1274 	anl	_ADCCON0,#0xf0
+      000699 43 E8 07         [24] 1275 	orl	_ADCCON0,#0x07
+      00069C 43 B3 02         [24] 1276 	orl	_P1M1,#0x02
+      00069F 53 B4 FD         [24] 1277 	anl	_P1M2,#0xfd
+      0006A2 75 F6 00         [24] 1278 	mov	_AINDIDS,#0x00
+      0006A5 43 F6 80         [24] 1279 	orl	_AINDIDS,#0x80
+      0006A8 43 E1 01         [24] 1280 	orl	_ADCCON1,#0x01
+                                   1281 ;	lib\N76E003\adc.c:175: break;
+                                   1282 ;	lib\N76E003\adc.c:177: Enable_ADC_BandGap;
+      0006AB 22               [24] 1283 	ret
+      0006AC                       1284 00158$:
+      0006AC 53 E1 FE         [24] 1285 	anl	_ADCCON1,#0xfe
+      0006AF 53 E8 F0         [24] 1286 	anl	_ADCCON0,#0xf0
+      0006B2 43 E8 08         [24] 1287 	orl	_ADCCON0,#0x08
+      0006B5 53 E8 F8         [24] 1288 	anl	_ADCCON0,#0xf8
+      0006B8 43 E1 01         [24] 1289 	orl	_ADCCON1,#0x01
+                                   1290 ;	lib\N76E003\adc.c:179: }
+                                   1291 ;	lib\N76E003\adc.c:180: }
+      0006BB 22               [24] 1292 	ret
+                                   1293 	.area CSEG    (CODE)
+                                   1294 	.area CONST   (CODE)
+                                   1295 	.area XINIT   (CODE)
+                                   1296 	.area CABS    (ABS,CODE)

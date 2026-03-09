@@ -1,0 +1,43 @@
+//
+// !!! WARNING !!! AUTO-GENERATED FILE!
+// PLEASE DO NOT MODIFY IT AND USE "platformio.ini":
+// https://docs.platformio.org/page/projectconf/section_env_build.html#build-flags
+//
+{
+    "configurations": [
+        {
+            "name": "PlatformIO",
+            "includePath": [
+                "G:/Github_OKAI/Okai_RestBot_Board/code_do_line/driver_motor/driver_motor/src",
+                "G:/Github_OKAI/Okai_RestBot_Board/code_do_line/driver_motor/driver_motor/lib/N76E003",
+                "G:/Github_OKAI/Okai_RestBot_Board/code_do_line/driver_motor/driver_motor/.pio/libdeps/n76e003/Unity/src",
+                ""
+            ],
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true,
+                "path": [
+                    "G:/Github_OKAI/Okai_RestBot_Board/code_do_line/driver_motor/driver_motor/src",
+                    "G:/Github_OKAI/Okai_RestBot_Board/code_do_line/driver_motor/driver_motor/lib/N76E003",
+                    "G:/Github_OKAI/Okai_RestBot_Board/code_do_line/driver_motor/driver_motor/.pio/libdeps/n76e003/Unity/src",
+                    ""
+                ]
+            },
+            "defines": [
+                "F_CPU=16000000L",
+                "HEAP_SIZE=128",
+                "PLATFORMIO=60118",
+                "N76E003",
+                "NAKED_ARCH_MCS51",
+                "NAKED_MCS51_N76E003",
+                "FOSC_166000",
+                ""
+            ],
+            "compilerPath": "C:/Users/Admin/.platformio/packages/toolchain-sdcc/bin/sdcc.exe",
+            "compilerArgs": [
+                "-mmcs51",
+                ""
+            ]
+        }
+    ],
+    "version": 4
+}

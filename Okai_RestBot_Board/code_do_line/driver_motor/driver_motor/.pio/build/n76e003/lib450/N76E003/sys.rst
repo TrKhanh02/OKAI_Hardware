@@ -1,0 +1,1054 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ISO C Compiler 
+                                      3 ; Version 4.4.0 #14620 (MINGW32)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module sys
+                                      6 	.optsdcc -mmcs51 --model-small
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _MOSI
+                                     12 	.globl _P00
+                                     13 	.globl _MISO
+                                     14 	.globl _P01
+                                     15 	.globl _RXD_1
+                                     16 	.globl _P02
+                                     17 	.globl _P03
+                                     18 	.globl _STADC
+                                     19 	.globl _P04
+                                     20 	.globl _P05
+                                     21 	.globl _TXD
+                                     22 	.globl _P06
+                                     23 	.globl _RXD
+                                     24 	.globl _P07
+                                     25 	.globl _IT0
+                                     26 	.globl _IE0
+                                     27 	.globl _IT1
+                                     28 	.globl _IE1
+                                     29 	.globl _TR0
+                                     30 	.globl _TF0
+                                     31 	.globl _TR1
+                                     32 	.globl _TF1
+                                     33 	.globl _P10
+                                     34 	.globl _P11
+                                     35 	.globl _P12
+                                     36 	.globl _SCL
+                                     37 	.globl _P13
+                                     38 	.globl _SDA
+                                     39 	.globl _P14
+                                     40 	.globl _P15
+                                     41 	.globl _TXD_1
+                                     42 	.globl _P16
+                                     43 	.globl _P17
+                                     44 	.globl _RI
+                                     45 	.globl _TI
+                                     46 	.globl _RB8
+                                     47 	.globl _TB8
+                                     48 	.globl _REN
+                                     49 	.globl _SM2
+                                     50 	.globl _SM1
+                                     51 	.globl _FE
+                                     52 	.globl _SM0
+                                     53 	.globl _P20
+                                     54 	.globl _EX0
+                                     55 	.globl _ET0
+                                     56 	.globl _EX1
+                                     57 	.globl _ET1
+                                     58 	.globl _ES
+                                     59 	.globl _EBOD
+                                     60 	.globl _EADC
+                                     61 	.globl _EA
+                                     62 	.globl _P30
+                                     63 	.globl _PX0
+                                     64 	.globl _PT0
+                                     65 	.globl _PX1
+                                     66 	.globl _PT1
+                                     67 	.globl _PS
+                                     68 	.globl _PBOD
+                                     69 	.globl _PADC
+                                     70 	.globl _I2CPX
+                                     71 	.globl _AA
+                                     72 	.globl _SI
+                                     73 	.globl _STO
+                                     74 	.globl _STA
+                                     75 	.globl _I2CEN
+                                     76 	.globl _CM_RL2
+                                     77 	.globl _TR2
+                                     78 	.globl _TF2
+                                     79 	.globl _P
+                                     80 	.globl _OV
+                                     81 	.globl _RS0
+                                     82 	.globl _RS1
+                                     83 	.globl _F0
+                                     84 	.globl _AC
+                                     85 	.globl _CY
+                                     86 	.globl _CLRPWM
+                                     87 	.globl _PWMF
+                                     88 	.globl _LOAD
+                                     89 	.globl _PWMRUN
+                                     90 	.globl _ADCHS0
+                                     91 	.globl _ADCHS1
+                                     92 	.globl _ADCHS2
+                                     93 	.globl _ADCHS3
+                                     94 	.globl _ETGSEL0
+                                     95 	.globl _ETGSEL1
+                                     96 	.globl _ADCS
+                                     97 	.globl _ADCF
+                                     98 	.globl _RI_1
+                                     99 	.globl _TI_1
+                                    100 	.globl _RB8_1
+                                    101 	.globl _TB8_1
+                                    102 	.globl _REN_1
+                                    103 	.globl _SM2_1
+                                    104 	.globl _SM1_1
+                                    105 	.globl _FE_1
+                                    106 	.globl _SM0_1
+                                    107 	.globl _EIPH1
+                                    108 	.globl _EIP1
+                                    109 	.globl _PORDIS
+                                    110 	.globl _PMD
+                                    111 	.globl _PMEN
+                                    112 	.globl _PDTCNT
+                                    113 	.globl _PDTEN
+                                    114 	.globl _SCON_1
+                                    115 	.globl _EIPH
+                                    116 	.globl _AINDIDS
+                                    117 	.globl _SPDR
+                                    118 	.globl _SPSR
+                                    119 	.globl _SPCR2
+                                    120 	.globl _SPCR
+                                    121 	.globl _CAPCON4
+                                    122 	.globl _CAPCON3
+                                    123 	.globl _B
+                                    124 	.globl _EIP
+                                    125 	.globl _C2H
+                                    126 	.globl _C2L
+                                    127 	.globl _PIF
+                                    128 	.globl _PIPEN
+                                    129 	.globl _PINEN
+                                    130 	.globl _PICON
+                                    131 	.globl _ADCCON0
+                                    132 	.globl _C1H
+                                    133 	.globl _C1L
+                                    134 	.globl _C0H
+                                    135 	.globl _C0L
+                                    136 	.globl _ADCDLY
+                                    137 	.globl _ADCCON2
+                                    138 	.globl _ADCCON1
+                                    139 	.globl _ACC
+                                    140 	.globl _PWMCON1
+                                    141 	.globl _PIOCON0
+                                    142 	.globl _PWM3L
+                                    143 	.globl _PWM2L
+                                    144 	.globl _PWM1L
+                                    145 	.globl _PWM0L
+                                    146 	.globl _PWMPL
+                                    147 	.globl _PWMCON0
+                                    148 	.globl _FBD
+                                    149 	.globl _PNP
+                                    150 	.globl _PWM3H
+                                    151 	.globl _PWM2H
+                                    152 	.globl _PWM1H
+                                    153 	.globl _PWM0H
+                                    154 	.globl _PWMPH
+                                    155 	.globl _PSW
+                                    156 	.globl _ADCMPH
+                                    157 	.globl _ADCMPL
+                                    158 	.globl _PWM5L
+                                    159 	.globl _TH2
+                                    160 	.globl _PWM4L
+                                    161 	.globl _TL2
+                                    162 	.globl _RCMP2H
+                                    163 	.globl _RCMP2L
+                                    164 	.globl _T2MOD
+                                    165 	.globl _T2CON
+                                    166 	.globl _TA
+                                    167 	.globl _PIOCON1
+                                    168 	.globl _RH3
+                                    169 	.globl _PWM5H
+                                    170 	.globl _RL3
+                                    171 	.globl _PWM4H
+                                    172 	.globl _T3CON
+                                    173 	.globl _ADCRH
+                                    174 	.globl _ADCRL
+                                    175 	.globl _I2ADDR
+                                    176 	.globl _I2CON
+                                    177 	.globl _I2TOC
+                                    178 	.globl _I2CLK
+                                    179 	.globl _I2STAT
+                                    180 	.globl _I2DAT
+                                    181 	.globl _SADDR_1
+                                    182 	.globl _SADEN_1
+                                    183 	.globl _SADEN
+                                    184 	.globl _IP
+                                    185 	.globl _PWMINTC
+                                    186 	.globl _IPH
+                                    187 	.globl _P2S
+                                    188 	.globl _P1SR
+                                    189 	.globl _P1M2
+                                    190 	.globl _P1S
+                                    191 	.globl _P1M1
+                                    192 	.globl _P0SR
+                                    193 	.globl _P0M2
+                                    194 	.globl _P0S
+                                    195 	.globl _P0M1
+                                    196 	.globl _P3
+                                    197 	.globl _IAPCN
+                                    198 	.globl _IAPFD
+                                    199 	.globl _P3SR
+                                    200 	.globl _P3M2
+                                    201 	.globl _P3S
+                                    202 	.globl _P3M1
+                                    203 	.globl _BODCON1
+                                    204 	.globl _WDCON
+                                    205 	.globl _SADDR
+                                    206 	.globl _IE
+                                    207 	.globl _IAPAH
+                                    208 	.globl _IAPAL
+                                    209 	.globl _IAPUEN
+                                    210 	.globl _IAPTRG
+                                    211 	.globl _BODCON0
+                                    212 	.globl _AUXR1
+                                    213 	.globl _P2
+                                    214 	.globl _CHPCON
+                                    215 	.globl _EIE1
+                                    216 	.globl _EIE
+                                    217 	.globl _SBUF_1
+                                    218 	.globl _SBUF
+                                    219 	.globl _SCON
+                                    220 	.globl _CKEN
+                                    221 	.globl _CKSWT
+                                    222 	.globl _CKDIV
+                                    223 	.globl _CAPCON2
+                                    224 	.globl _CAPCON1
+                                    225 	.globl _CAPCON0
+                                    226 	.globl _SFRS
+                                    227 	.globl _P1
+                                    228 	.globl _WKCON
+                                    229 	.globl _CKCON
+                                    230 	.globl _TH1
+                                    231 	.globl _TH0
+                                    232 	.globl _TL1
+                                    233 	.globl _TL0
+                                    234 	.globl _TMOD
+                                    235 	.globl _TCON
+                                    236 	.globl _PCON
+                                    237 	.globl _RWK
+                                    238 	.globl _RCTRIM1
+                                    239 	.globl _RCTRIM0
+                                    240 	.globl _DPH
+                                    241 	.globl _DPL
+                                    242 	.globl _SP
+                                    243 	.globl _P0
+                                    244 	.globl _MODIFY_HIRC
+                                    245 	.globl _FsysSelect
+                                    246 	.globl _ClockEnable
+                                    247 	.globl _ClockDisable
+                                    248 	.globl _ClockSwitch
+                                    249 ;--------------------------------------------------------
+                                    250 ; special function registers
+                                    251 ;--------------------------------------------------------
+                                    252 	.area RSEG    (ABS,DATA)
+      000000                        253 	.org 0x0000
+                           000080   254 _P0	=	0x0080
+                           000081   255 _SP	=	0x0081
+                           000082   256 _DPL	=	0x0082
+                           000083   257 _DPH	=	0x0083
+                           000084   258 _RCTRIM0	=	0x0084
+                           000085   259 _RCTRIM1	=	0x0085
+                           000086   260 _RWK	=	0x0086
+                           000087   261 _PCON	=	0x0087
+                           000088   262 _TCON	=	0x0088
+                           000089   263 _TMOD	=	0x0089
+                           00008A   264 _TL0	=	0x008a
+                           00008B   265 _TL1	=	0x008b
+                           00008C   266 _TH0	=	0x008c
+                           00008D   267 _TH1	=	0x008d
+                           00008E   268 _CKCON	=	0x008e
+                           00008F   269 _WKCON	=	0x008f
+                           000090   270 _P1	=	0x0090
+                           000091   271 _SFRS	=	0x0091
+                           000092   272 _CAPCON0	=	0x0092
+                           000093   273 _CAPCON1	=	0x0093
+                           000094   274 _CAPCON2	=	0x0094
+                           000095   275 _CKDIV	=	0x0095
+                           000096   276 _CKSWT	=	0x0096
+                           000097   277 _CKEN	=	0x0097
+                           000098   278 _SCON	=	0x0098
+                           000099   279 _SBUF	=	0x0099
+                           00009A   280 _SBUF_1	=	0x009a
+                           00009B   281 _EIE	=	0x009b
+                           00009C   282 _EIE1	=	0x009c
+                           00009F   283 _CHPCON	=	0x009f
+                           0000A0   284 _P2	=	0x00a0
+                           0000A2   285 _AUXR1	=	0x00a2
+                           0000A3   286 _BODCON0	=	0x00a3
+                           0000A4   287 _IAPTRG	=	0x00a4
+                           0000A5   288 _IAPUEN	=	0x00a5
+                           0000A6   289 _IAPAL	=	0x00a6
+                           0000A7   290 _IAPAH	=	0x00a7
+                           0000A8   291 _IE	=	0x00a8
+                           0000A9   292 _SADDR	=	0x00a9
+                           0000AA   293 _WDCON	=	0x00aa
+                           0000AB   294 _BODCON1	=	0x00ab
+                           0000AC   295 _P3M1	=	0x00ac
+                           0000AC   296 _P3S	=	0x00ac
+                           0000AD   297 _P3M2	=	0x00ad
+                           0000AD   298 _P3SR	=	0x00ad
+                           0000AE   299 _IAPFD	=	0x00ae
+                           0000AF   300 _IAPCN	=	0x00af
+                           0000B0   301 _P3	=	0x00b0
+                           0000B1   302 _P0M1	=	0x00b1
+                           0000B1   303 _P0S	=	0x00b1
+                           0000B2   304 _P0M2	=	0x00b2
+                           0000B2   305 _P0SR	=	0x00b2
+                           0000B3   306 _P1M1	=	0x00b3
+                           0000B3   307 _P1S	=	0x00b3
+                           0000B4   308 _P1M2	=	0x00b4
+                           0000B4   309 _P1SR	=	0x00b4
+                           0000B5   310 _P2S	=	0x00b5
+                           0000B7   311 _IPH	=	0x00b7
+                           0000B7   312 _PWMINTC	=	0x00b7
+                           0000B8   313 _IP	=	0x00b8
+                           0000B9   314 _SADEN	=	0x00b9
+                           0000BA   315 _SADEN_1	=	0x00ba
+                           0000BB   316 _SADDR_1	=	0x00bb
+                           0000BC   317 _I2DAT	=	0x00bc
+                           0000BD   318 _I2STAT	=	0x00bd
+                           0000BE   319 _I2CLK	=	0x00be
+                           0000BF   320 _I2TOC	=	0x00bf
+                           0000C0   321 _I2CON	=	0x00c0
+                           0000C1   322 _I2ADDR	=	0x00c1
+                           0000C2   323 _ADCRL	=	0x00c2
+                           0000C3   324 _ADCRH	=	0x00c3
+                           0000C4   325 _T3CON	=	0x00c4
+                           0000C4   326 _PWM4H	=	0x00c4
+                           0000C5   327 _RL3	=	0x00c5
+                           0000C5   328 _PWM5H	=	0x00c5
+                           0000C6   329 _RH3	=	0x00c6
+                           0000C6   330 _PIOCON1	=	0x00c6
+                           0000C7   331 _TA	=	0x00c7
+                           0000C8   332 _T2CON	=	0x00c8
+                           0000C9   333 _T2MOD	=	0x00c9
+                           0000CA   334 _RCMP2L	=	0x00ca
+                           0000CB   335 _RCMP2H	=	0x00cb
+                           0000CC   336 _TL2	=	0x00cc
+                           0000CC   337 _PWM4L	=	0x00cc
+                           0000CD   338 _TH2	=	0x00cd
+                           0000CD   339 _PWM5L	=	0x00cd
+                           0000CE   340 _ADCMPL	=	0x00ce
+                           0000CF   341 _ADCMPH	=	0x00cf
+                           0000D0   342 _PSW	=	0x00d0
+                           0000D1   343 _PWMPH	=	0x00d1
+                           0000D2   344 _PWM0H	=	0x00d2
+                           0000D3   345 _PWM1H	=	0x00d3
+                           0000D4   346 _PWM2H	=	0x00d4
+                           0000D5   347 _PWM3H	=	0x00d5
+                           0000D6   348 _PNP	=	0x00d6
+                           0000D7   349 _FBD	=	0x00d7
+                           0000D8   350 _PWMCON0	=	0x00d8
+                           0000D9   351 _PWMPL	=	0x00d9
+                           0000DA   352 _PWM0L	=	0x00da
+                           0000DB   353 _PWM1L	=	0x00db
+                           0000DC   354 _PWM2L	=	0x00dc
+                           0000DD   355 _PWM3L	=	0x00dd
+                           0000DE   356 _PIOCON0	=	0x00de
+                           0000DF   357 _PWMCON1	=	0x00df
+                           0000E0   358 _ACC	=	0x00e0
+                           0000E1   359 _ADCCON1	=	0x00e1
+                           0000E2   360 _ADCCON2	=	0x00e2
+                           0000E3   361 _ADCDLY	=	0x00e3
+                           0000E4   362 _C0L	=	0x00e4
+                           0000E5   363 _C0H	=	0x00e5
+                           0000E6   364 _C1L	=	0x00e6
+                           0000E7   365 _C1H	=	0x00e7
+                           0000E8   366 _ADCCON0	=	0x00e8
+                           0000E9   367 _PICON	=	0x00e9
+                           0000EA   368 _PINEN	=	0x00ea
+                           0000EB   369 _PIPEN	=	0x00eb
+                           0000EC   370 _PIF	=	0x00ec
+                           0000ED   371 _C2L	=	0x00ed
+                           0000EE   372 _C2H	=	0x00ee
+                           0000EF   373 _EIP	=	0x00ef
+                           0000F0   374 _B	=	0x00f0
+                           0000F1   375 _CAPCON3	=	0x00f1
+                           0000F2   376 _CAPCON4	=	0x00f2
+                           0000F3   377 _SPCR	=	0x00f3
+                           0000F3   378 _SPCR2	=	0x00f3
+                           0000F4   379 _SPSR	=	0x00f4
+                           0000F5   380 _SPDR	=	0x00f5
+                           0000F6   381 _AINDIDS	=	0x00f6
+                           0000F7   382 _EIPH	=	0x00f7
+                           0000F8   383 _SCON_1	=	0x00f8
+                           0000F9   384 _PDTEN	=	0x00f9
+                           0000FA   385 _PDTCNT	=	0x00fa
+                           0000FB   386 _PMEN	=	0x00fb
+                           0000FC   387 _PMD	=	0x00fc
+                           0000FD   388 _PORDIS	=	0x00fd
+                           0000FE   389 _EIP1	=	0x00fe
+                           0000FF   390 _EIPH1	=	0x00ff
+                                    391 ;--------------------------------------------------------
+                                    392 ; special function bits
+                                    393 ;--------------------------------------------------------
+                                    394 	.area RSEG    (ABS,DATA)
+      000000                        395 	.org 0x0000
+                           0000FF   396 _SM0_1	=	0x00ff
+                           0000FF   397 _FE_1	=	0x00ff
+                           0000FE   398 _SM1_1	=	0x00fe
+                           0000FD   399 _SM2_1	=	0x00fd
+                           0000FC   400 _REN_1	=	0x00fc
+                           0000FB   401 _TB8_1	=	0x00fb
+                           0000FA   402 _RB8_1	=	0x00fa
+                           0000F9   403 _TI_1	=	0x00f9
+                           0000F8   404 _RI_1	=	0x00f8
+                           0000EF   405 _ADCF	=	0x00ef
+                           0000EE   406 _ADCS	=	0x00ee
+                           0000ED   407 _ETGSEL1	=	0x00ed
+                           0000EC   408 _ETGSEL0	=	0x00ec
+                           0000EB   409 _ADCHS3	=	0x00eb
+                           0000EA   410 _ADCHS2	=	0x00ea
+                           0000E9   411 _ADCHS1	=	0x00e9
+                           0000E8   412 _ADCHS0	=	0x00e8
+                           0000DF   413 _PWMRUN	=	0x00df
+                           0000DE   414 _LOAD	=	0x00de
+                           0000DD   415 _PWMF	=	0x00dd
+                           0000DC   416 _CLRPWM	=	0x00dc
+                           0000D7   417 _CY	=	0x00d7
+                           0000D6   418 _AC	=	0x00d6
+                           0000D5   419 _F0	=	0x00d5
+                           0000D4   420 _RS1	=	0x00d4
+                           0000D3   421 _RS0	=	0x00d3
+                           0000D2   422 _OV	=	0x00d2
+                           0000D0   423 _P	=	0x00d0
+                           0000CF   424 _TF2	=	0x00cf
+                           0000CA   425 _TR2	=	0x00ca
+                           0000C8   426 _CM_RL2	=	0x00c8
+                           0000C6   427 _I2CEN	=	0x00c6
+                           0000C5   428 _STA	=	0x00c5
+                           0000C4   429 _STO	=	0x00c4
+                           0000C3   430 _SI	=	0x00c3
+                           0000C2   431 _AA	=	0x00c2
+                           0000C0   432 _I2CPX	=	0x00c0
+                           0000BE   433 _PADC	=	0x00be
+                           0000BD   434 _PBOD	=	0x00bd
+                           0000BC   435 _PS	=	0x00bc
+                           0000BB   436 _PT1	=	0x00bb
+                           0000BA   437 _PX1	=	0x00ba
+                           0000B9   438 _PT0	=	0x00b9
+                           0000B8   439 _PX0	=	0x00b8
+                           0000B0   440 _P30	=	0x00b0
+                           0000AF   441 _EA	=	0x00af
+                           0000AE   442 _EADC	=	0x00ae
+                           0000AD   443 _EBOD	=	0x00ad
+                           0000AC   444 _ES	=	0x00ac
+                           0000AB   445 _ET1	=	0x00ab
+                           0000AA   446 _EX1	=	0x00aa
+                           0000A9   447 _ET0	=	0x00a9
+                           0000A8   448 _EX0	=	0x00a8
+                           0000A0   449 _P20	=	0x00a0
+                           00009F   450 _SM0	=	0x009f
+                           00009F   451 _FE	=	0x009f
+                           00009E   452 _SM1	=	0x009e
+                           00009D   453 _SM2	=	0x009d
+                           00009C   454 _REN	=	0x009c
+                           00009B   455 _TB8	=	0x009b
+                           00009A   456 _RB8	=	0x009a
+                           000099   457 _TI	=	0x0099
+                           000098   458 _RI	=	0x0098
+                           000097   459 _P17	=	0x0097
+                           000096   460 _P16	=	0x0096
+                           000096   461 _TXD_1	=	0x0096
+                           000095   462 _P15	=	0x0095
+                           000094   463 _P14	=	0x0094
+                           000094   464 _SDA	=	0x0094
+                           000093   465 _P13	=	0x0093
+                           000093   466 _SCL	=	0x0093
+                           000092   467 _P12	=	0x0092
+                           000091   468 _P11	=	0x0091
+                           000090   469 _P10	=	0x0090
+                           00008F   470 _TF1	=	0x008f
+                           00008E   471 _TR1	=	0x008e
+                           00008D   472 _TF0	=	0x008d
+                           00008C   473 _TR0	=	0x008c
+                           00008B   474 _IE1	=	0x008b
+                           00008A   475 _IT1	=	0x008a
+                           000089   476 _IE0	=	0x0089
+                           000088   477 _IT0	=	0x0088
+                           000087   478 _P07	=	0x0087
+                           000087   479 _RXD	=	0x0087
+                           000086   480 _P06	=	0x0086
+                           000086   481 _TXD	=	0x0086
+                           000085   482 _P05	=	0x0085
+                           000084   483 _P04	=	0x0084
+                           000084   484 _STADC	=	0x0084
+                           000083   485 _P03	=	0x0083
+                           000082   486 _P02	=	0x0082
+                           000082   487 _RXD_1	=	0x0082
+                           000081   488 _P01	=	0x0081
+                           000081   489 _MISO	=	0x0081
+                           000080   490 _P00	=	0x0080
+                           000080   491 _MOSI	=	0x0080
+                                    492 ;--------------------------------------------------------
+                                    493 ; overlayable register banks
+                                    494 ;--------------------------------------------------------
+                                    495 	.area REG_BANK_0	(REL,OVR,DATA)
+      000000                        496 	.ds 8
+                                    497 ;--------------------------------------------------------
+                                    498 ; internal ram data
+                                    499 ;--------------------------------------------------------
+                                    500 	.area DSEG    (DATA)
+                                    501 ;--------------------------------------------------------
+                                    502 ; overlayable items in internal ram
+                                    503 ;--------------------------------------------------------
+                                    504 	.area	OSEG    (OVR,DATA)
+                                    505 	.area	OSEG    (OVR,DATA)
+                                    506 	.area	OSEG    (OVR,DATA)
+                                    507 	.area	OSEG    (OVR,DATA)
+                                    508 ;--------------------------------------------------------
+                                    509 ; indirectly addressable internal ram data
+                                    510 ;--------------------------------------------------------
+                                    511 	.area ISEG    (DATA)
+                                    512 ;--------------------------------------------------------
+                                    513 ; absolute internal ram data
+                                    514 ;--------------------------------------------------------
+                                    515 	.area IABS    (ABS,DATA)
+                                    516 	.area IABS    (ABS,DATA)
+                                    517 ;--------------------------------------------------------
+                                    518 ; bit data
+                                    519 ;--------------------------------------------------------
+                                    520 	.area BSEG    (BIT)
+                                    521 ;--------------------------------------------------------
+                                    522 ; paged external ram data
+                                    523 ;--------------------------------------------------------
+                                    524 	.area PSEG    (PAG,XDATA)
+                                    525 ;--------------------------------------------------------
+                                    526 ; uninitialized external ram data
+                                    527 ;--------------------------------------------------------
+                                    528 	.area XSEG    (XDATA)
+                                    529 ;--------------------------------------------------------
+                                    530 ; absolute external ram data
+                                    531 ;--------------------------------------------------------
+                                    532 	.area XABS    (ABS,XDATA)
+                                    533 ;--------------------------------------------------------
+                                    534 ; initialized external ram data
+                                    535 ;--------------------------------------------------------
+                                    536 	.area XISEG   (XDATA)
+                                    537 	.area HOME    (CODE)
+                                    538 	.area GSINIT0 (CODE)
+                                    539 	.area GSINIT1 (CODE)
+                                    540 	.area GSINIT2 (CODE)
+                                    541 	.area GSINIT3 (CODE)
+                                    542 	.area GSINIT4 (CODE)
+                                    543 	.area GSINIT5 (CODE)
+                                    544 	.area GSINIT  (CODE)
+                                    545 	.area GSFINAL (CODE)
+                                    546 	.area CSEG    (CODE)
+                                    547 ;--------------------------------------------------------
+                                    548 ; global & static initialisations
+                                    549 ;--------------------------------------------------------
+                                    550 	.area HOME    (CODE)
+                                    551 	.area GSINIT  (CODE)
+                                    552 	.area GSFINAL (CODE)
+                                    553 	.area GSINIT  (CODE)
+                                    554 ;--------------------------------------------------------
+                                    555 ; Home
+                                    556 ;--------------------------------------------------------
+                                    557 	.area HOME    (CODE)
+                                    558 	.area HOME    (CODE)
+                                    559 ;--------------------------------------------------------
+                                    560 ; code
+                                    561 ;--------------------------------------------------------
+                                    562 	.area CSEG    (CODE)
+                                    563 ;------------------------------------------------------------
+                                    564 ;Allocation info for local variables in function 'MODIFY_HIRC'
+                                    565 ;------------------------------------------------------------
+                                    566 ;u8HIRCSEL                 Allocated to registers r7 
+                                    567 ;hircmap0                  Allocated to registers r3 
+                                    568 ;hircmap1                  Allocated to registers r2 
+                                    569 ;DIDhighbyte               Allocated to registers r4 
+                                    570 ;DIDlowbyte                Allocated to registers r5 
+                                    571 ;BYTE_TMP                  Allocated to registers r6 
+                                    572 ;trimvalue16bit            Allocated to registers r7 
+                                    573 ;------------------------------------------------------------
+                                    574 ;	lib\N76E003\sys.c:4: void MODIFY_HIRC(uint8_t u8HIRCSEL)
+                                    575 ;	-----------------------------------------
+                                    576 ;	 function MODIFY_HIRC
+                                    577 ;	-----------------------------------------
+      000922                        578 _MODIFY_HIRC:
+                           000007   579 	ar7 = 0x07
+                           000006   580 	ar6 = 0x06
+                           000005   581 	ar5 = 0x05
+                           000004   582 	ar4 = 0x04
+                           000003   583 	ar3 = 0x03
+                           000002   584 	ar2 = 0x02
+                           000001   585 	ar1 = 0x01
+                           000000   586 	ar0 = 0x00
+      000922 AF 82            [24]  587 	mov	r7, dpl
+                                    588 ;	lib\N76E003\sys.c:9: BYTE_TMP = IE;
+      000924 AE A8            [24]  589 	mov	r6,_IE
+                                    590 ;	lib\N76E003\sys.c:10: EA = 0 ;
+                                    591 ;	assignBit
+      000926 C2 AF            [12]  592 	clr	_EA
+                                    593 ;	lib\N76E003\sys.c:12: set_IAPEN;
+                                    594 ;	assignBit
+      000928 A2 AF            [12]  595 	mov	c,_EA
+      00092A 92 00            [24]  596 	mov	_BIT_TMP,c
+                                    597 ;	assignBit
+      00092C C2 AF            [12]  598 	clr	_EA
+      00092E 75 C7 AA         [24]  599 	mov	_TA,#0xaa
+      000931 75 C7 55         [24]  600 	mov	_TA,#0x55
+      000934 43 9F 01         [24]  601 	orl	_CHPCON,#0x01
+                                    602 ;	assignBit
+      000937 A2 00            [12]  603 	mov	c,_BIT_TMP
+      000939 92 AF            [24]  604 	mov	_EA,c
+                                    605 ;	lib\N76E003\sys.c:14: IAPAL = 0;
+      00093B 75 A6 00         [24]  606 	mov	_IAPAL,#0x00
+                                    607 ;	lib\N76E003\sys.c:15: IAPAH = 0;
+      00093E 75 A7 00         [24]  608 	mov	_IAPAH,#0x00
+                                    609 ;	lib\N76E003\sys.c:16: IAPCN = READ_DID;
+      000941 75 AF 0C         [24]  610 	mov	_IAPCN,#0x0c
+                                    611 ;	lib\N76E003\sys.c:17: set_IAPGO;
+                                    612 ;	assignBit
+      000944 A2 AF            [12]  613 	mov	c,_EA
+      000946 92 00            [24]  614 	mov	_BIT_TMP,c
+                                    615 ;	assignBit
+      000948 C2 AF            [12]  616 	clr	_EA
+      00094A 75 C7 AA         [24]  617 	mov	_TA,#0xaa
+      00094D 75 C7 55         [24]  618 	mov	_TA,#0x55
+      000950 43 A4 01         [24]  619 	orl	_IAPTRG,#0x01
+                                    620 ;	assignBit
+      000953 A2 00            [12]  621 	mov	c,_BIT_TMP
+      000955 92 AF            [24]  622 	mov	_EA,c
+                                    623 ;	lib\N76E003\sys.c:18: DIDlowbyte = IAPFD;
+      000957 AD AE            [24]  624 	mov	r5,_IAPFD
+                                    625 ;	lib\N76E003\sys.c:19: IAPAL++;
+      000959 E5 A6            [12]  626 	mov	a,_IAPAL
+      00095B 04               [12]  627 	inc	a
+      00095C F5 A6            [12]  628 	mov	_IAPAL,a
+                                    629 ;	lib\N76E003\sys.c:20: set_IAPGO;
+                                    630 ;	assignBit
+      00095E A2 AF            [12]  631 	mov	c,_EA
+      000960 92 00            [24]  632 	mov	_BIT_TMP,c
+                                    633 ;	assignBit
+      000962 C2 AF            [12]  634 	clr	_EA
+      000964 75 C7 AA         [24]  635 	mov	_TA,#0xaa
+      000967 75 C7 55         [24]  636 	mov	_TA,#0x55
+      00096A 43 A4 01         [24]  637 	orl	_IAPTRG,#0x01
+                                    638 ;	assignBit
+      00096D A2 00            [12]  639 	mov	c,_BIT_TMP
+      00096F 92 AF            [24]  640 	mov	_EA,c
+                                    641 ;	lib\N76E003\sys.c:21: DIDhighbyte = IAPFD;
+      000971 AC AE            [24]  642 	mov	r4,_IAPFD
+                                    643 ;	lib\N76E003\sys.c:23: IAPAL = 0x30;
+      000973 75 A6 30         [24]  644 	mov	_IAPAL,#0x30
+                                    645 ;	lib\N76E003\sys.c:24: IAPAH = 0x00;
+      000976 75 A7 00         [24]  646 	mov	_IAPAH,#0x00
+                                    647 ;	lib\N76E003\sys.c:25: IAPCN = READ_UID;
+      000979 75 AF 04         [24]  648 	mov	_IAPCN,#0x04
+                                    649 ;	lib\N76E003\sys.c:26: set_IAPGO;
+                                    650 ;	assignBit
+      00097C A2 AF            [12]  651 	mov	c,_EA
+      00097E 92 00            [24]  652 	mov	_BIT_TMP,c
+                                    653 ;	assignBit
+      000980 C2 AF            [12]  654 	clr	_EA
+      000982 75 C7 AA         [24]  655 	mov	_TA,#0xaa
+      000985 75 C7 55         [24]  656 	mov	_TA,#0x55
+      000988 43 A4 01         [24]  657 	orl	_IAPTRG,#0x01
+                                    658 ;	assignBit
+      00098B A2 00            [12]  659 	mov	c,_BIT_TMP
+      00098D 92 AF            [24]  660 	mov	_EA,c
+                                    661 ;	lib\N76E003\sys.c:27: hircmap0 = IAPFD;
+      00098F AB AE            [24]  662 	mov	r3,_IAPFD
+                                    663 ;	lib\N76E003\sys.c:28: IAPAL++;
+      000991 E5 A6            [12]  664 	mov	a,_IAPAL
+      000993 04               [12]  665 	inc	a
+      000994 F5 A6            [12]  666 	mov	_IAPAL,a
+                                    667 ;	lib\N76E003\sys.c:29: set_IAPGO;
+                                    668 ;	assignBit
+      000996 A2 AF            [12]  669 	mov	c,_EA
+      000998 92 00            [24]  670 	mov	_BIT_TMP,c
+                                    671 ;	assignBit
+      00099A C2 AF            [12]  672 	clr	_EA
+      00099C 75 C7 AA         [24]  673 	mov	_TA,#0xaa
+      00099F 75 C7 55         [24]  674 	mov	_TA,#0x55
+      0009A2 43 A4 01         [24]  675 	orl	_IAPTRG,#0x01
+                                    676 ;	assignBit
+      0009A5 A2 00            [12]  677 	mov	c,_BIT_TMP
+      0009A7 92 AF            [24]  678 	mov	_EA,c
+                                    679 ;	lib\N76E003\sys.c:30: hircmap1 = IAPFD;
+      0009A9 AA AE            [24]  680 	mov	r2,_IAPFD
+                                    681 ;	lib\N76E003\sys.c:32: switch (u8HIRCSEL)
+      0009AB BF 08 4C         [24]  682 	cjne	r7,#0x08,00126$
+                                    683 ;	lib\N76E003\sys.c:35: trimvalue16bit = ((hircmap0 << 1) + (hircmap1 & 0x01));
+      0009AE 8B 07            [24]  684 	mov	ar7,r3
+      0009B0 EF               [12]  685 	mov	a,r7
+      0009B1 2F               [12]  686 	add	a,r7
+      0009B2 FF               [12]  687 	mov	r7,a
+      0009B3 8A 01            [24]  688 	mov	ar1,r2
+      0009B5 74 01            [12]  689 	mov	a,#0x01
+      0009B7 59               [12]  690 	anl	a,r1
+      0009B8 2F               [12]  691 	add	a, r7
+      0009B9 FF               [12]  692 	mov	r7,a
+                                    693 ;	lib\N76E003\sys.c:36: if ((DIDhighbyte==0x67)&(DIDlowbyte==0x50))
+      0009BA E4               [12]  694 	clr	a
+      0009BB BC 67 01         [24]  695 	cjne	r4,#0x67,00152$
+      0009BE 04               [12]  696 	inc	a
+      0009BF                        697 00152$:
+      0009BF F9               [12]  698 	mov	r1,a
+      0009C0 E4               [12]  699 	clr	a
+      0009C1 BD 50 01         [24]  700 	cjne	r5,#0x50,00154$
+      0009C4 04               [12]  701 	inc	a
+      0009C5                        702 00154$:
+      0009C5 FD               [12]  703 	mov	r5,a
+      0009C6 59               [12]  704 	anl	a,r1
+      0009C7 60 08            [24]  705 	jz	00120$
+                                    706 ;	lib\N76E003\sys.c:37: trimvalue16bit -= 16;                            /*N76S003 process */
+      0009C9 8F 01            [24]  707 	mov	ar1,r7
+      0009CB E9               [12]  708 	mov	a,r1
+      0009CC 24 F0            [12]  709 	add	a,#0xf0
+      0009CE FF               [12]  710 	mov	r7,a
+      0009CF 80 0E            [24]  711 	sjmp	00121$
+      0009D1                        712 00120$:
+                                    713 ;	lib\N76E003\sys.c:38: else if((DIDhighbyte==0x36)&(DIDlowbyte==0x50))
+      0009D1 E4               [12]  714 	clr	a
+      0009D2 BC 36 01         [24]  715 	cjne	r4,#0x36,00157$
+      0009D5 04               [12]  716 	inc	a
+      0009D6                        717 00157$:
+      0009D6 5D               [12]  718 	anl	a,r5
+      0009D7 60 06            [24]  719 	jz	00121$
+                                    720 ;	lib\N76E003\sys.c:39: trimvalue16bit -= 14;                            /*N76E003 process */
+      0009D9 8F 05            [24]  721 	mov	ar5,r7
+      0009DB ED               [12]  722 	mov	a,r5
+      0009DC 24 F2            [12]  723 	add	a,#0xf2
+      0009DE FF               [12]  724 	mov	r7,a
+      0009DF                        725 00121$:
+                                    726 ;	lib\N76E003\sys.c:40: hircmap1 = trimvalue16bit&0x01;
+      0009DF 74 01            [12]  727 	mov	a,#0x01
+      0009E1 5F               [12]  728 	anl	a,r7
+      0009E2 FA               [12]  729 	mov	r2,a
+                                    730 ;	lib\N76E003\sys.c:41: hircmap0 = trimvalue16bit>>1;
+      0009E3 EF               [12]  731 	mov	a,r7
+      0009E4 C3               [12]  732 	clr	c
+      0009E5 13               [12]  733 	rrc	a
+      0009E6 FB               [12]  734 	mov	r3,a
+                                    735 ;	lib\N76E003\sys.c:42: set_IAPGO;
+                                    736 ;	assignBit
+      0009E7 A2 AF            [12]  737 	mov	c,_EA
+      0009E9 92 00            [24]  738 	mov	_BIT_TMP,c
+                                    739 ;	assignBit
+      0009EB C2 AF            [12]  740 	clr	_EA
+      0009ED 75 C7 AA         [24]  741 	mov	_TA,#0xaa
+      0009F0 75 C7 55         [24]  742 	mov	_TA,#0x55
+      0009F3 43 A4 01         [24]  743 	orl	_IAPTRG,#0x01
+                                    744 ;	assignBit
+      0009F6 A2 00            [12]  745 	mov	c,_BIT_TMP
+      0009F8 92 AF            [24]  746 	mov	_EA,c
+                                    747 ;	lib\N76E003\sys.c:45: }
+      0009FA                        748 00126$:
+                                    749 ;	lib\N76E003\sys.c:47: TA = 0xAA;
+      0009FA 75 C7 AA         [24]  750 	mov	_TA,#0xaa
+                                    751 ;	lib\N76E003\sys.c:48: TA = 0x55;
+      0009FD 75 C7 55         [24]  752 	mov	_TA,#0x55
+                                    753 ;	lib\N76E003\sys.c:49: RCTRIM0 = hircmap0;
+      000A00 8B 84            [24]  754 	mov	_RCTRIM0,r3
+                                    755 ;	lib\N76E003\sys.c:50: TA = 0xAA;
+      000A02 75 C7 AA         [24]  756 	mov	_TA,#0xaa
+                                    757 ;	lib\N76E003\sys.c:51: TA = 0x55;
+      000A05 75 C7 55         [24]  758 	mov	_TA,#0x55
+                                    759 ;	lib\N76E003\sys.c:52: RCTRIM1 = hircmap1;
+      000A08 8A 85            [24]  760 	mov	_RCTRIM1,r2
+                                    761 ;	lib\N76E003\sys.c:53: clr_IAPEN;
+                                    762 ;	assignBit
+      000A0A A2 AF            [12]  763 	mov	c,_EA
+      000A0C 92 00            [24]  764 	mov	_BIT_TMP,c
+                                    765 ;	assignBit
+      000A0E C2 AF            [12]  766 	clr	_EA
+      000A10 75 C7 AA         [24]  767 	mov	_TA,#0xaa
+      000A13 75 C7 55         [24]  768 	mov	_TA,#0x55
+      000A16 53 9F FE         [24]  769 	anl	_CHPCON,#0xfe
+                                    770 ;	assignBit
+      000A19 A2 00            [12]  771 	mov	c,_BIT_TMP
+      000A1B 92 AF            [24]  772 	mov	_EA,c
+                                    773 ;	lib\N76E003\sys.c:54: IE = BYTE_TMP;
+      000A1D 8E A8            [24]  774 	mov	_IE,r6
+                                    775 ;	lib\N76E003\sys.c:55: }
+      000A1F 22               [24]  776 	ret
+                                    777 ;------------------------------------------------------------
+                                    778 ;Allocation info for local variables in function 'FsysSelect'
+                                    779 ;------------------------------------------------------------
+                                    780 ;u8FsysMode                Allocated to registers r7 
+                                    781 ;------------------------------------------------------------
+                                    782 ;	lib\N76E003\sys.c:67: void FsysSelect(uint8_t u8FsysMode)
+                                    783 ;	-----------------------------------------
+                                    784 ;	 function FsysSelect
+                                    785 ;	-----------------------------------------
+      000A20                        786 _FsysSelect:
+      000A20 AF 82            [24]  787 	mov	r7, dpl
+                                    788 ;	lib\N76E003\sys.c:69: switch (u8FsysMode)
+      000A22 BF 02 02         [24]  789 	cjne	r7,#0x02,00131$
+      000A25 80 0A            [24]  790 	sjmp	00101$
+      000A27                        791 00131$:
+      000A27 BF 03 02         [24]  792 	cjne	r7,#0x03,00132$
+      000A2A 80 11            [24]  793 	sjmp	00102$
+      000A2C                        794 00132$:
+                                    795 ;	lib\N76E003\sys.c:72: case FSYS_HIRC:
+      000A2C BF 04 53         [24]  796 	cjne	r7,#0x04,00111$
+      000A2F 80 26            [24]  797 	sjmp	00106$
+      000A31                        798 00101$:
+                                    799 ;	lib\N76E003\sys.c:73: ClockEnable(FSYS_HIRC);                 //Enable HIRC
+      000A31 75 82 02         [24]  800 	mov	dpl, #0x02
+      000A34 12 0A 83         [24]  801 	lcall	_ClockEnable
+                                    802 ;	lib\N76E003\sys.c:74: ClockSwitch(FSYS_HIRC);                 //Switching system clock HIRC
+      000A37 75 82 02         [24]  803 	mov	dpl, #0x02
+                                    804 ;	lib\N76E003\sys.c:75: break;
+                                    805 ;	lib\N76E003\sys.c:78: case FSYS_LIRC:
+      000A3A 02 0A E5         [24]  806 	ljmp	_ClockSwitch
+      000A3D                        807 00102$:
+                                    808 ;	lib\N76E003\sys.c:79: ClockSwitch(FSYS_LIRC);                 // LIRC always on switch system to LIRC
+      000A3D 75 82 03         [24]  809 	mov	dpl, #0x03
+      000A40 12 0A E5         [24]  810 	lcall	_ClockSwitch
+                                    811 ;	lib\N76E003\sys.c:80: clr_HIRCEN;                        // Disable HIRC if needed 
+                                    812 ;	assignBit
+      000A43 A2 AF            [12]  813 	mov	c,_EA
+      000A45 92 00            [24]  814 	mov	_BIT_TMP,c
+                                    815 ;	assignBit
+      000A47 C2 AF            [12]  816 	clr	_EA
+      000A49 75 C7 AA         [24]  817 	mov	_TA,#0xaa
+      000A4C 75 C7 55         [24]  818 	mov	_TA,#0x55
+      000A4F 53 97 DF         [24]  819 	anl	_CKEN,#0xdf
+                                    820 ;	assignBit
+      000A52 A2 00            [12]  821 	mov	c,_BIT_TMP
+      000A54 92 AF            [24]  822 	mov	_EA,c
+                                    823 ;	lib\N76E003\sys.c:81: break;
+                                    824 ;	lib\N76E003\sys.c:84: case FSYS_OSCIN_P30:
+      000A56 22               [24]  825 	ret
+      000A57                        826 00106$:
+                                    827 ;	lib\N76E003\sys.c:85: ClockEnable(FSYS_HIRC);                 //Enable and system clock to HIRC
+      000A57 75 82 02         [24]  828 	mov	dpl, #0x02
+      000A5A 12 0A 83         [24]  829 	lcall	_ClockEnable
+                                    830 ;	lib\N76E003\sys.c:86: ClockSwitch(FSYS_HIRC);
+      000A5D 75 82 02         [24]  831 	mov	dpl, #0x02
+      000A60 12 0A E5         [24]  832 	lcall	_ClockSwitch
+                                    833 ;	lib\N76E003\sys.c:87: ClockEnable(FSYS_OSCIN_P30);            //Enable External clock source
+      000A63 75 82 04         [24]  834 	mov	dpl, #0x04
+      000A66 12 0A 83         [24]  835 	lcall	_ClockEnable
+                                    836 ;	lib\N76E003\sys.c:88: ClockSwitch(FSYS_OSCIN_P30);            //Switching system clock to OSCIN 
+      000A69 75 82 04         [24]  837 	mov	dpl, #0x04
+      000A6C 12 0A E5         [24]  838 	lcall	_ClockSwitch
+                                    839 ;	lib\N76E003\sys.c:89: clr_HIRCEN;                        //step5: disable HIRC if needed 
+                                    840 ;	assignBit
+      000A6F A2 AF            [12]  841 	mov	c,_EA
+      000A71 92 00            [24]  842 	mov	_BIT_TMP,c
+                                    843 ;	assignBit
+      000A73 C2 AF            [12]  844 	clr	_EA
+      000A75 75 C7 AA         [24]  845 	mov	_TA,#0xaa
+      000A78 75 C7 55         [24]  846 	mov	_TA,#0x55
+      000A7B 53 97 DF         [24]  847 	anl	_CKEN,#0xdf
+                                    848 ;	assignBit
+      000A7E A2 00            [12]  849 	mov	c,_BIT_TMP
+      000A80 92 AF            [24]  850 	mov	_EA,c
+                                    851 ;	lib\N76E003\sys.c:91: }
+      000A82                        852 00111$:
+                                    853 ;	lib\N76E003\sys.c:92: }
+      000A82 22               [24]  854 	ret
+                                    855 ;------------------------------------------------------------
+                                    856 ;Allocation info for local variables in function 'ClockEnable'
+                                    857 ;------------------------------------------------------------
+                                    858 ;u8FsysMode                Allocated to registers r7 
+                                    859 ;------------------------------------------------------------
+                                    860 ;	lib\N76E003\sys.c:94: void ClockEnable(uint8_t u8FsysMode)
+                                    861 ;	-----------------------------------------
+                                    862 ;	 function ClockEnable
+                                    863 ;	-----------------------------------------
+      000A83                        864 _ClockEnable:
+      000A83 AF 82            [24]  865 	mov	r7, dpl
+                                    866 ;	lib\N76E003\sys.c:96: switch (u8FsysMode)
+      000A85 BF 02 02         [24]  867 	cjne	r7,#0x02,00145$
+      000A88 80 05            [24]  868 	sjmp	00102$
+      000A8A                        869 00145$:
+                                    870 ;	lib\N76E003\sys.c:100: set_HIRCEN;                        //step1: Enable extnal clock source.
+      000A8A BF 04 2A         [24]  871 	cjne	r7,#0x04,00113$
+      000A8D 80 1A            [24]  872 	sjmp	00108$
+      000A8F                        873 00102$:
+                                    874 ;	assignBit
+      000A8F A2 AF            [12]  875 	mov	c,_EA
+      000A91 92 00            [24]  876 	mov	_BIT_TMP,c
+                                    877 ;	assignBit
+      000A93 C2 AF            [12]  878 	clr	_EA
+      000A95 75 C7 AA         [24]  879 	mov	_TA,#0xaa
+      000A98 75 C7 55         [24]  880 	mov	_TA,#0x55
+      000A9B 43 97 20         [24]  881 	orl	_CKEN,#0x20
+                                    882 ;	assignBit
+      000A9E A2 00            [12]  883 	mov	c,_BIT_TMP
+      000AA0 92 AF            [24]  884 	mov	_EA,c
+                                    885 ;	lib\N76E003\sys.c:101: while(!(CKSWT&SET_BIT5));               //step2: check clock source status and wait for ready
+      000AA2                        886 00105$:
+      000AA2 E5 96            [12]  887 	mov	a,_CKSWT
+      000AA4 20 E5 10         [24]  888 	jb	acc.5,00113$
+                                    889 ;	lib\N76E003\sys.c:104: case FSYS_OSCIN_P30:
+      000AA7 80 F9            [24]  890 	sjmp	00105$
+      000AA9                        891 00108$:
+                                    892 ;	lib\N76E003\sys.c:105: TA=0xAA;TA=0x55;CKEN|=0xC0;             //step1: Enable extnal clock source.
+      000AA9 75 C7 AA         [24]  893 	mov	_TA,#0xaa
+      000AAC 75 C7 55         [24]  894 	mov	_TA,#0x55
+      000AAF 43 97 C0         [24]  895 	orl	_CKEN,#0xc0
+                                    896 ;	lib\N76E003\sys.c:106: while(!(CKSWT&SET_BIT3));               //step2: check clock source status and wait for ready
+      000AB2                        897 00109$:
+      000AB2 E5 96            [12]  898 	mov	a,_CKSWT
+      000AB4 30 E3 FB         [24]  899 	jnb	acc.3,00109$
+                                    900 ;	lib\N76E003\sys.c:108: }
+      000AB7                        901 00113$:
+                                    902 ;	lib\N76E003\sys.c:109: }
+      000AB7 22               [24]  903 	ret
+                                    904 ;------------------------------------------------------------
+                                    905 ;Allocation info for local variables in function 'ClockDisable'
+                                    906 ;------------------------------------------------------------
+                                    907 ;u8FsysMode                Allocated to registers r7 
+                                    908 ;------------------------------------------------------------
+                                    909 ;	lib\N76E003\sys.c:111: void ClockDisable(uint8_t u8FsysMode)
+                                    910 ;	-----------------------------------------
+                                    911 ;	 function ClockDisable
+                                    912 ;	-----------------------------------------
+      000AB8                        913 _ClockDisable:
+      000AB8 AF 82            [24]  914 	mov	r7, dpl
+                                    915 ;	lib\N76E003\sys.c:113: SFRS = 0;
+      000ABA 75 91 00         [24]  916 	mov	_SFRS,#0x00
+                                    917 ;	lib\N76E003\sys.c:114: switch (u8FsysMode)
+      000ABD BF 02 02         [24]  918 	cjne	r7,#0x02,00121$
+      000AC0 80 05            [24]  919 	sjmp	00102$
+      000AC2                        920 00121$:
+                                    921 ;	lib\N76E003\sys.c:118: clr_HIRCEN;
+      000AC2 BF 04 1F         [24]  922 	cjne	r7,#0x04,00107$
+      000AC5 80 14            [24]  923 	sjmp	00105$
+      000AC7                        924 00102$:
+                                    925 ;	assignBit
+      000AC7 A2 AF            [12]  926 	mov	c,_EA
+      000AC9 92 00            [24]  927 	mov	_BIT_TMP,c
+                                    928 ;	assignBit
+      000ACB C2 AF            [12]  929 	clr	_EA
+      000ACD 75 C7 AA         [24]  930 	mov	_TA,#0xaa
+      000AD0 75 C7 55         [24]  931 	mov	_TA,#0x55
+      000AD3 53 97 DF         [24]  932 	anl	_CKEN,#0xdf
+                                    933 ;	assignBit
+      000AD6 A2 00            [12]  934 	mov	c,_BIT_TMP
+      000AD8 92 AF            [24]  935 	mov	_EA,c
+                                    936 ;	lib\N76E003\sys.c:119: break;
+                                    937 ;	lib\N76E003\sys.c:121: case FSYS_OSCIN_P30:
+      000ADA 22               [24]  938 	ret
+      000ADB                        939 00105$:
+                                    940 ;	lib\N76E003\sys.c:122: TA=0xAA;TA=0x55;CKEN&=0x3F;
+      000ADB 75 C7 AA         [24]  941 	mov	_TA,#0xaa
+      000ADE 75 C7 55         [24]  942 	mov	_TA,#0x55
+      000AE1 53 97 3F         [24]  943 	anl	_CKEN,#0x3f
+                                    944 ;	lib\N76E003\sys.c:124: }
+      000AE4                        945 00107$:
+                                    946 ;	lib\N76E003\sys.c:125: }
+      000AE4 22               [24]  947 	ret
+                                    948 ;------------------------------------------------------------
+                                    949 ;Allocation info for local variables in function 'ClockSwitch'
+                                    950 ;------------------------------------------------------------
+                                    951 ;u8FsysMode                Allocated to registers r7 
+                                    952 ;------------------------------------------------------------
+                                    953 ;	lib\N76E003\sys.c:127: void ClockSwitch(uint8_t u8FsysMode)
+                                    954 ;	-----------------------------------------
+                                    955 ;	 function ClockSwitch
+                                    956 ;	-----------------------------------------
+      000AE5                        957 _ClockSwitch:
+      000AE5 AF 82            [24]  958 	mov	r7, dpl
+                                    959 ;	lib\N76E003\sys.c:129: SFRS = 0 ;
+      000AE7 75 91 00         [24]  960 	mov	_SFRS,#0x00
+                                    961 ;	lib\N76E003\sys.c:130: BIT_TMP=EA;EA=0;
+                                    962 ;	assignBit
+      000AEA A2 AF            [12]  963 	mov	c,_EA
+      000AEC 92 00            [24]  964 	mov	_BIT_TMP,c
+                                    965 ;	assignBit
+      000AEE C2 AF            [12]  966 	clr	_EA
+                                    967 ;	lib\N76E003\sys.c:131: switch (u8FsysMode)
+      000AF0 BF 02 02         [24]  968 	cjne	r7,#0x02,00140$
+      000AF3 80 0A            [24]  969 	sjmp	00102$
+      000AF5                        970 00140$:
+      000AF5 BF 03 02         [24]  971 	cjne	r7,#0x03,00141$
+      000AF8 80 2D            [24]  972 	sjmp	00109$
+      000AFA                        973 00141$:
+                                    974 ;	lib\N76E003\sys.c:135: clr_OSC1;
+      000AFA BF 04 65         [24]  975 	cjne	r7,#0x04,00119$
+      000AFD 80 50            [24]  976 	sjmp	00116$
+      000AFF                        977 00102$:
+                                    978 ;	assignBit
+      000AFF A2 AF            [12]  979 	mov	c,_EA
+      000B01 92 00            [24]  980 	mov	_BIT_TMP,c
+                                    981 ;	assignBit
+      000B03 C2 AF            [12]  982 	clr	_EA
+      000B05 75 C7 AA         [24]  983 	mov	_TA,#0xaa
+      000B08 75 C7 55         [24]  984 	mov	_TA,#0x55
+      000B0B 53 96 FB         [24]  985 	anl	_CKSWT,#0xfb
+                                    986 ;	assignBit
+      000B0E A2 00            [12]  987 	mov	c,_BIT_TMP
+      000B10 92 AF            [24]  988 	mov	_EA,c
+                                    989 ;	lib\N76E003\sys.c:136: clr_OSC0;
+                                    990 ;	assignBit
+      000B12 A2 AF            [12]  991 	mov	c,_EA
+      000B14 92 00            [24]  992 	mov	_BIT_TMP,c
+                                    993 ;	assignBit
+      000B16 C2 AF            [12]  994 	clr	_EA
+      000B18 75 C7 AA         [24]  995 	mov	_TA,#0xaa
+      000B1B 75 C7 55         [24]  996 	mov	_TA,#0x55
+      000B1E 53 96 FD         [24]  997 	anl	_CKSWT,#0xfd
+                                    998 ;	assignBit
+      000B21 A2 00            [12]  999 	mov	c,_BIT_TMP
+      000B23 92 AF            [24] 1000 	mov	_EA,c
+                                   1001 ;	lib\N76E003\sys.c:137: break;
+                                   1002 ;	lib\N76E003\sys.c:140: set_OSC1;
+      000B25 80 3B            [24] 1003 	sjmp	00119$
+      000B27                       1004 00109$:
+                                   1005 ;	assignBit
+      000B27 A2 AF            [12] 1006 	mov	c,_EA
+      000B29 92 00            [24] 1007 	mov	_BIT_TMP,c
+                                   1008 ;	assignBit
+      000B2B C2 AF            [12] 1009 	clr	_EA
+      000B2D 75 C7 AA         [24] 1010 	mov	_TA,#0xaa
+      000B30 75 C7 55         [24] 1011 	mov	_TA,#0x55
+      000B33 43 96 04         [24] 1012 	orl	_CKSWT,#0x04
+                                   1013 ;	assignBit
+      000B36 A2 00            [12] 1014 	mov	c,_BIT_TMP
+      000B38 92 AF            [24] 1015 	mov	_EA,c
+                                   1016 ;	lib\N76E003\sys.c:141: clr_OSC0;
+                                   1017 ;	assignBit
+      000B3A A2 AF            [12] 1018 	mov	c,_EA
+      000B3C 92 00            [24] 1019 	mov	_BIT_TMP,c
+                                   1020 ;	assignBit
+      000B3E C2 AF            [12] 1021 	clr	_EA
+      000B40 75 C7 AA         [24] 1022 	mov	_TA,#0xaa
+      000B43 75 C7 55         [24] 1023 	mov	_TA,#0x55
+      000B46 53 96 FD         [24] 1024 	anl	_CKSWT,#0xfd
+                                   1025 ;	assignBit
+      000B49 A2 00            [12] 1026 	mov	c,_BIT_TMP
+      000B4B 92 AF            [24] 1027 	mov	_EA,c
+                                   1028 ;	lib\N76E003\sys.c:142: break;
+                                   1029 ;	lib\N76E003\sys.c:145: set_ECLKST;
+      000B4D 80 13            [24] 1030 	sjmp	00119$
+      000B4F                       1031 00116$:
+                                   1032 ;	assignBit
+      000B4F A2 AF            [12] 1033 	mov	c,_EA
+      000B51 92 00            [24] 1034 	mov	_BIT_TMP,c
+                                   1035 ;	assignBit
+      000B53 C2 AF            [12] 1036 	clr	_EA
+      000B55 75 C7 AA         [24] 1037 	mov	_TA,#0xaa
+      000B58 75 C7 55         [24] 1038 	mov	_TA,#0x55
+      000B5B 43 96 08         [24] 1039 	orl	_CKSWT,#0x08
+                                   1040 ;	assignBit
+      000B5E A2 00            [12] 1041 	mov	c,_BIT_TMP
+      000B60 92 AF            [24] 1042 	mov	_EA,c
+                                   1043 ;	lib\N76E003\sys.c:147: }
+      000B62                       1044 00119$:
+                                   1045 ;	lib\N76E003\sys.c:148: EA = BIT_TMP;
+                                   1046 ;	assignBit
+      000B62 A2 00            [12] 1047 	mov	c,_BIT_TMP
+      000B64 92 AF            [24] 1048 	mov	_EA,c
+                                   1049 ;	lib\N76E003\sys.c:149: }
+      000B66 22               [24] 1050 	ret
+                                   1051 	.area CSEG    (CODE)
+                                   1052 	.area CONST   (CODE)
+                                   1053 	.area XINIT   (CODE)
+                                   1054 	.area CABS    (ABS,CODE)
