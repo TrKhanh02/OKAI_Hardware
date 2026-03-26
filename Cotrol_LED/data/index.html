@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Điều Khiển LED</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Animated background -->
+        <div class="bg-animated">
+            <div class="bg-blob bg-blob-1"></div>
+            <div class="bg-blob bg-blob-2"></div>
+            <div class="bg-blob bg-blob-3"></div>
+        </div>
+
+        <div class="content-wrapper">
+            <!-- Header -->
+            <header class="app-header">
+                <div class="header-icon">
+                    <svg class="lightbulb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 18h6"></path>
+                        <path d="M10 22h4"></path>
+                        <path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1.26.5 2.45 1.5 3.5.76.76 1.23 1.52 1.41 2.5"></path>
+                    </svg>
+                </div>
+                <h1>Điều Khiển LED</h1>
+                <p class="header-subtitle">Tùy chỉnh màu sắc, hiệu ứng và cài đặt LED theo sở thích của bạn</p>
+            </header>
+
+            <!-- LED Preview Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <h2 class="card-title">Xem Trước LED</h2>
+                        <p class="card-description">Hiệu ứng sẽ được hiển thị theo thời gian thực</p>
+                    </div>
+                    <button id="powerBtn" class="power-btn power-on">
+                        <svg class="power-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path>
+                            <line x1="12" y1="2" x2="12" y2="12"></line>
+                        </svg>
+                        <span class="power-text">BẬT</span>
+                    </button>
+                </div>
+                <div class="card-content">
+                    <div id="ledPreview" class="led-preview"></div>
+                </div>
+            </div>
+
+            <!-- Preset Selector Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <h2 class="card-title">Chế độ có sẵn</h2>
+                        <p class="card-description">Chọn nhanh các cài đặt phổ biến</p>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div id="presetSelector" class="preset-grid"></div>
+                </div>
+            </div>
+
+            <!-- Mode Selector Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <h2 class="card-title">Chế độ màu</h2>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div id="modeSelector" class="mode-selector"></div>
+                </div>
+            </div>
+
+            <!-- Effect Selector Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <h2 class="card-title">Hiệu ứng</h2>
+                        <p class="card-description">Chọn kiểu hiệu ứng LED</p>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div id="effectSelector"></div>
+                </div>
+            </div>
+
+            <!-- Color Picker and Controls -->
+            <div class="controls-grid">
+                <!-- Color Picker Card -->
+                <div id="colorPickerCard" class="card">
+                    <div class="card-header">
+                        <div>
+                            <h2 class="card-title">Màu Sắc</h2>
+                            <p class="card-description">Chọn màu cho LED của bạn</p>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="color-picker-container">
+                            <div class="color-wheel-wrapper">
+                                <canvas id="colorWheel" width="280" height="280"></canvas>
+                                <div id="colorSelector" class="color-selector"></div>
+                                <div class="color-hex-display">
+                                    <span id="hexValue">#00FF00</span>
+                                </div>
+                            </div>
+                            <div class="quick-colors">
+                                <label>Màu nhanh</label>
+                                <div id="quickColors" class="quick-colors-grid"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LED Controls Card -->
+                <div class="card controls-card">
+                    <div class="card-header">
+                        <div>
+                            <h2 class="card-title">Cài Đặt</h2>
+                            <p class="card-description">Điều chỉnh số lượng, tốc độ và độ sáng</p>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="control-group">
+                            <div class="control-header">
+                                <label>Số lượng LED</label>
+                                <input type="number" id="ledCountInput" min="1" max="200" value="30" class="led-count-input">
+                            </div>
+                            <input type="range" id="ledCountSlider" min="1" max="200" value="30" class="slider">
+                        </div>
+
+                        <div class="control-group">
+                            <div class="control-header">
+                                <label>Tốc độ</label>
+                                <span id="speedValue" class="value-badge">50%</span>
+                            </div>
+                            <input type="range" id="speedSlider" min="10" max="100" step="5" value="50" class="slider">
+                        </div>
+
+                        <div class="control-group">
+                            <div class="control-header">
+                                <label>Độ sáng</label>
+                                <span id="brightnessValue" class="value-badge">80%</span>
+                            </div>
+                            <input type="range" id="brightnessSlider" min="0" max="100" step="5" value="80" class="slider">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="app-footer">
+                <p>💡 Thử nghiệm với các hiệu ứng và màu sắc khác nhau để tạo ra các mẫu LED độc đáo!</p>
+            </footer>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
