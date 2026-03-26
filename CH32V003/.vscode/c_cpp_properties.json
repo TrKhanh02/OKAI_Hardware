@@ -1,0 +1,67 @@
+//
+// !!! WARNING !!! AUTO-GENERATED FILE!
+// PLEASE DO NOT MODIFY IT AND USE "platformio.ini":
+// https://docs.platformio.org/page/projectconf/section_env_build.html#build-flags
+//
+{
+    "configurations": [
+        {
+            "name": "PlatformIO",
+            "includePath": [
+                "C:/Users/Admin/Desktop/CH32V003/include",
+                "C:/Users/Admin/Desktop/CH32V003/src",
+                "C:/Users/Admin/Desktop/CH32V003/src/motor",
+                "C:/Users/Admin/Desktop/CH32V003/src/ws2812",
+                "C:/Users/Admin/Desktop/CH32V003/src/rfid",
+                "C:/Users/Admin/Desktop/CH32V003/src/line",
+                "C:/Users/Admin/.platformio/packages/framework-wch-noneos-sdk/Core/ch32v00x",
+                "C:/Users/Admin/.platformio/packages/framework-wch-noneos-sdk/Peripheral/ch32v00x/inc",
+                "C:/Users/Admin/.platformio/packages/framework-wch-noneos-sdk/Peripheral/ch32v00x/src",
+                "C:/Users/Admin/.platformio/packages/framework-wch-noneos-sdk/Startup",
+                "C:/Users/Admin/.platformio/packages/framework-wch-noneos-sdk/System/ch32v00x",
+                "C:/Users/Admin/.platformio/packages/framework-wch-noneos-sdk/Debug/ch32v00x",
+                ""
+            ],
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true,
+                "path": [
+                    "C:/Users/Admin/Desktop/CH32V003/include",
+                    "C:/Users/Admin/Desktop/CH32V003/src",
+                    "C:/Users/Admin/Desktop/CH32V003/src/motor",
+                    "C:/Users/Admin/Desktop/CH32V003/src/ws2812",
+                    "C:/Users/Admin/Desktop/CH32V003/src/rfid",
+                    "C:/Users/Admin/Desktop/CH32V003/src/line",
+                    "C:/Users/Admin/.platformio/packages/framework-wch-noneos-sdk/Core/ch32v00x",
+                    "C:/Users/Admin/.platformio/packages/framework-wch-noneos-sdk/Peripheral/ch32v00x/inc",
+                    "C:/Users/Admin/.platformio/packages/framework-wch-noneos-sdk/Peripheral/ch32v00x/src",
+                    "C:/Users/Admin/.platformio/packages/framework-wch-noneos-sdk/Startup",
+                    "C:/Users/Admin/.platformio/packages/framework-wch-noneos-sdk/System/ch32v00x",
+                    "C:/Users/Admin/.platformio/packages/framework-wch-noneos-sdk/Debug/ch32v00x",
+                    ""
+                ]
+            },
+            "defines": [
+                "PLATFORMIO=60118",
+                "CH32V003F4",
+                "CH32V00X",
+                "CH32V00x",
+                "CH32V003",
+                "SYSCLK_FREQ_48MHz_HSI=48000000",
+                "SYSCLK_FREQ_48MHZ_HSI=48000000",
+                "__PIO_CPP_SUPPORT__",
+                ""
+            ],
+            "cStandard": "gnu99",
+            "cppStandard": "gnu++17",
+            "compilerPath": "C:/Users/Admin/.platformio/packages/toolchain-riscv/bin/riscv-wch-elf-gcc.exe",
+            "compilerArgs": [
+                "-msmall-data-limit=0",
+                "-msave-restore",
+                "-march=rv32ecxw",
+                "-mabi=ilp32e",
+                ""
+            ]
+        }
+    ],
+    "version": 4
+}
